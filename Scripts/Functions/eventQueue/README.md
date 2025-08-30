@@ -1,7 +1,7 @@
-# ServiceNow `gs.eventQueue()`
+# ⚡ ServiceNow `gs.eventQueue()`
 
 The `gs.eventQueue()` method is used to trigger events in ServiceNow from the **server-side**.  
-These events must first be registered in **Event Registry(sysevent_register)**.
+These events must first be registered in **Event Registry (`sysevent_register`)**.
 
 ---
 
@@ -25,7 +25,7 @@ gs.eventQueue(String name, Object glideRecord, String parm1, String parm2, Strin
 
 ---
 
-## ⚡ Notes
+## ⚡ Key Notes
 
 - Minimum **2 parameters** required (`name`, `glideRecord`).  
 - Maximum **5 parameters** supported.  
@@ -33,9 +33,8 @@ gs.eventQueue(String name, Object glideRecord, String parm1, String parm2, Strin
 - **parm1/parm2** can hold custom values (status, email, sys_id, etc.).  
   - ✅ Best practice: Pass **sys_id** if you might need more user details later.  
   - Use **email** only if you just want to display/send it as plain text.  
-- These values don’t change the event itself, but they are **stored in the event log** (`sysevent` table) and can be consumed by Notifications or Script Actions.  
-- Notifications → Can use `${event.parm1}`, `${event.parm2}`, `${current.field_name}` in email templates.  
-- Script Actions → Server-side scripts that run when an event is fired (update records, call integrations, etc.).  
+- Notifications → Can use `${event.parm1}`, `${event.parm2}`, `${current.field_name}`.  
+- Script Actions → Run additional **server-side logic** when the event is fired.  
 
 ---
 
@@ -60,68 +59,65 @@ gs.eventQueue("task.reminder", current, "high_priority", "overdue", "reminder_qu
 ```javascript
 gs.eventQueue("user.notify", current, "approved", "john.doe@example.com,abc@domain.com");
 ```
+
+---
+
 # ⚡ ServiceNow Event Queues
 
-ServiceNow’s **event queues** are mechanisms used to manage and process system events **asynchronously**.  
+ServiceNow’s **event queues** manage and process system events **asynchronously**.  
 Events trigger actions based on conditions, enabling tasks such as **notifications** or **workflows**.
 
 ---
 
-## 📌 Events in the [sysevent] Table
-- Some out-of-the-box (OOB) events have a value in the **Queue** column.
-- Others leave this field **blank** (default behavior).
+## 🗂 Events in the `sysevent` Table
+- Some OOB events have a value in the **Queue** column.  
+- Others leave this field **blank** → defaults to `"events"` queue.  
 
 ---
 
 ## ⚙️ Event Processing is Asynchronous
-- When you call **`gs.eventQueue()`**, ServiceNow inserts a record into the **sysevent** table.
-- The **Event Manager** (scheduler job) picks up those records and processes them.
-- This processing is **asynchronous** → the caller doesn’t wait for the event to finish.
+- When you call `gs.eventQueue()`, ServiceNow inserts a record into the **`sysevent`** table.  
+- The **Event Manager** picks it up and processes it **asynchronously**.  
+- Caller does **not wait** for the event to complete.  
 
 ---
 
-## 🗂 Default Queue ("events")
-- If you don’t specify a queue, all events go into the **`events`** queue  
-  (field left blank in `sysevent`).
-- Events in the **same queue** are processed **sequentially** by the queue processor.
+## 🗂 Default Queue: `"events"`
+- If queue is **not specified**, events go into the `"events"` queue.  
+- Events in the **same queue** are processed **sequentially**.  
 - Example:  
-  - Fire **10 events** into the same queue → they’ll be processed **one after another**  
-    (not strictly parallel, but very fast).
+  - Fire **10 events** into `"events"` → processed one after another (very fast, but not parallel).  
 
 ---
 
 ## 🔀 Different Queues (Parallel Processing)
-- Queues like **`flow_engine`**, **`text_index`**, or custom queues each have their **own processor thread**.
-- This means:
-  - Fire **5 events** into `"events"`.
-  - Fire **5 events** into `"flow_engine"`.
-  - 👉 Both processors will work **in parallel**.
+- Queues like `"flow_engine"`, `"text_index"`, or **custom queues** each have their **own processor thread**.  
+- This allows **parallel event execution** across queues.  
+  - 5 events in `"events"` + 5 events in `"flow_engine"` → processed in **parallel**.  
 
+---
 
 ## 🔄 Custom Event Queues
 
-By default, if the **Queue** parameter is left blank, the event is processed in the **Default queue** (`events`).  
-This is fine for infrequent events.  
-
-👉 But if your workflow triggers **many events in a short time**, define a **custom queue** to prevent slowdowns.
+By default, if the **Queue** parameter is left blank, the event is processed in the `"events"` queue.  
+This is fine for infrequent events, but for **high volume events**, a **custom queue** is recommended.
 
 ---
 
 ### 🛠️ Steps to Define a Custom Queue
-
 1. Navigate to **Schedule [sys_trigger]**.  
-2. Find the record with name **`text index events process`**.  
-3. Look at the **Job context** field — it looks like:  
+2. Find record with name **`text index events process`**.  
+3. Look at the **Job context**:  
    ```javascript
    GlideEventManager('text_index').process();
    ```
-4. Create a copy of this record for your queue:  
-   - Change **Name** → e.g., `reminder_queue`  
-   - Change **Job context** →  
+4. Duplicate the record → update fields:  
+   - **Name**: `reminder_queue`  
+   - **Job context**:  
      ```javascript
      GlideEventManager('reminder_queue').process();
      ```
-   - Save with **Insert and Stay** (important).  
+   - Save using **Insert and Stay**.  
 
 ---
 
@@ -131,12 +127,11 @@ This is fine for infrequent events.
 gs.eventQueue("event.name", recordGr, "param1", "param2", "reminder_queue");
 ```
 
-This ensures the event is processed by the **`reminder_queue`** processor instead of the default queue.
+👉 This ensures the event is processed by the **`reminder_queue`** processor instead of the default queue.
 
 ---
 
-## 📚 Official References
-
+## 📚 References
 - [ServiceNow Docs: Custom Event Queues](https://www.servicenow.com/community/developer-articles/custom-event-queues/ta-p/3045097)  
 - [ServiceNow Community: gs.eventQueue() Explanation](https://www.servicenow.com/community/developer-forum/gs-eventqueue/m-p/1529244)  
 - [ServiceNow Community: Event Queue Parameters](https://www.servicenow.com/community/developer-forum/mail-notification-using-event-queue/m-p/2995462)  
@@ -145,45 +140,8 @@ This ensures the event is processed by the **`reminder_queue`** processor instea
 
 ## 📝 Summary
 
-- `gs.eventQueue()` supports **up to 5 parameters**.  
-- Use for triggering **events → notifications → business logic → scheduled jobs**.  
-- **parm1/parm2**: store custom context values, retrievable in notifications/scripts.  
-- **Default queue** works for low frequency.  
-- **Custom queues** recommended for high-volume events to optimize performance.  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- `gs.eventQueue()` supports **2–5 parameters**.  
+- Used to trigger **events → notifications → business logic → scheduled jobs**.  
+- **parm1/parm2** store context values (status, email, sys_id, etc.).  
+- **Default queue** works for low volume.  
+- **Custom queues** recommended for heavy event loads (parallel processing).  
