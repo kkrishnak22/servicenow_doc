@@ -11,8 +11,8 @@ email.addAddress("cc", "john.copy@example.com", "John Roberts");
 email.addAddress("bcc", "john.secret@example.com", "John Roberts");
 ```
 
-👉 You can only include **CC** and **BCC** via an **Email Script**.
-
+You can only include **CC** and **BCC** via an **Email Script**.
+We cannot add to in addAddress
 ---
 
 ## 📬 Sending Dynamic Recipients via Event
@@ -23,6 +23,6 @@ If you want to send recipients dynamically, trigger the email using an **event**
 gs.eventQueue(
   'event_name',         // Name of the event
   glideRecordObject,    // Record to attach the event to
-  recipients            // Comma-separated list of recipients
+  recipients           // Comma-separated list of recipients
 );
 ```
