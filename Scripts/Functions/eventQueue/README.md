@@ -1,7 +1,7 @@
 # ServiceNow `gs.eventQueue()`
 
 The `gs.eventQueue()` method is used to trigger events in ServiceNow from the **server-side**.  
-These events must first be registered in **System Policy → Events → Event Registry**.
+These events must first be registered in **Event Registry(sysevent_register)**.
 
 ---
 
@@ -60,8 +60,43 @@ gs.eventQueue("task.reminder", current, "high_priority", "overdue", "reminder_qu
 ```javascript
 gs.eventQueue("user.notify", current, "approved", "john.doe@example.com,abc@domain.com");
 ```
+# ⚡ ServiceNow Event Queues
+
+ServiceNow’s **event queues** are mechanisms used to manage and process system events **asynchronously**.  
+Events trigger actions based on conditions, enabling tasks such as **notifications** or **workflows**.
 
 ---
+
+## 📌 Events in the [sysevent] Table
+- Some out-of-the-box (OOB) events have a value in the **Queue** column.
+- Others leave this field **blank** (default behavior).
+
+---
+
+## ⚙️ Event Processing is Asynchronous
+- When you call **`gs.eventQueue()`**, ServiceNow inserts a record into the **sysevent** table.
+- The **Event Manager** (scheduler job) picks up those records and processes them.
+- This processing is **asynchronous** → the caller doesn’t wait for the event to finish.
+
+---
+
+## 🗂 Default Queue ("events")
+- If you don’t specify a queue, all events go into the **`events`** queue  
+  (field left blank in `sysevent`).
+- Events in the **same queue** are processed **sequentially** by the queue processor.
+- Example:  
+  - Fire **10 events** into the same queue → they’ll be processed **one after another**  
+    (not strictly parallel, but very fast).
+
+---
+
+## 🔀 Different Queues (Parallel Processing)
+- Queues like **`flow_engine`**, **`text_index`**, or custom queues each have their **own processor thread**.
+- This means:
+  - Fire **5 events** into `"events"`.
+  - Fire **5 events** into `"flow_engine"`.
+  - 👉 Both processors will work **in parallel**.
+
 
 ## 🔄 Custom Event Queues
 
@@ -115,3 +150,40 @@ This ensures the event is processed by the **`reminder_queue`** processor instea
 - **parm1/parm2**: store custom context values, retrievable in notifications/scripts.  
 - **Default queue** works for low frequency.  
 - **Custom queues** recommended for high-volume events to optimize performance.  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
