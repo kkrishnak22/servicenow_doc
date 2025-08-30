@@ -1,0 +1,1 @@
+gs.eventQueue('event.name', GlideRecord, parm1, parm2);
