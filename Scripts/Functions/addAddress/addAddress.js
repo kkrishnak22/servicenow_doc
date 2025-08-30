@@ -9,6 +9,3 @@ for (var p = 0; p < emailArr.length > 0; p++) {
 		var temp = emailArr[p];
 		email.addAddress('cc', temp.email.toString(), temp.name);
 }
-//email.addAddress(type, address, displayname);
-// email.addAddress("cc","john.copy@example.com","John Roberts");
-// email.addAddress("bcc","john.secret@example.com","John Roberts");

@@ -23,6 +23,6 @@ If you want to send recipients dynamically, trigger the email using an **event**
 gs.eventQueue(
   'event_name',         // Name of the event
   glideRecordObject,    // Record to attach the event to
-  recipients           // Comma-separated list of recipients // "to"
+  recipients           // Comma-separated list of recipients // "to" or any value
 );
 ```
