@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2025-08-30 11:01:27">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description/>
+<inserted/>
+<name>PDFGeneration_Example</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>4dffe72b0feba6109f884bc530d1b2f1</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c801ff6b0feba6109f884bc530d1b2f6</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_d269e7af0faba6109f884bc530d1b2ad</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl"><sys_security_acl action="INSERT_OR_UPDATE"><active>true</active><admin_overrides>true</admin_overrides><advanced>false</advanced><applies_to/><condition/><controlled_by_refs/><decision_type>allow</decision_type><description>Default access control on u_employee_certificates_table</description><local_or_existing>Existing</local_or_existing><name>u_employee_certificates_table</name><operation display_value="create">create</operation><script/><security_attribute/><sys_class_name>sys_security_acl</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:16</sys_created_on><sys_id>d269e7af0faba6109f884bc530d1b2ad</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_security_acl_d269e7af0faba6109f884bc530d1b2ad</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:16</sys_updated_on><type display_value="record">record</type></sys_security_acl></record_update>]]></payload>
+<payload_hash>662535245</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>000133ab0feba6109f884bc530d1b252</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854c250000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table</target_name>
+<type>Access Control</type>
+<update_domain>global</update_domain>
+<update_guid>d669e7af18aba61024550c13cda8beb4</update_guid>
+<update_guid_history>d669e7af18aba61024550c13cda8beb4:662535245</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_u_employee_certificates_table_u_user_en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="u_user" label="User" language="en" table="u_employee_certificates_table"><sys_documentation action="INSERT_OR_UPDATE"><element>u_user</element><help/><hint/><label>User</label><language>en</language><name>u_employee_certificates_table</name><plural>Users</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:29:38</sys_created_on><sys_id>9ab963ef0faba6109f884bc530d1b22a</sys_id><sys_mod_count>0</sys_mod_count><sys_name>User</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_u_employee_certificates_table_u_user_en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:29:38</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>1670182363</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>0001ff6b0feba6109f884bc530d1b2fa</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa868c5b0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table.User</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>d2b963efe8aba610447bea9373b05c67</update_guid>
+<update_guid_history>d2b963efe8aba610447bea9373b05c67:1670182363</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_u_certificate_template_u_html_template_en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="u_html_template" label="HTML Template" language="en" table="u_certificate_template"><sys_documentation action="INSERT_OR_UPDATE"><element>u_html_template</element><help/><hint/><label>HTML Template</label><language>en</language><name>u_certificate_template</name><plural>HTML Templates</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:30:45</sys_created_on><sys_id>32f92bef0faba6109f884bc530d1b2c8</sys_id><sys_mod_count>0</sys_mod_count><sys_name>HTML Template</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_u_certificate_template_u_html_template_en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:30:45</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>-66660903</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>0401ff6b0feba6109f884bc530d1b2f9</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa87943e0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template.HTML Template</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>7ef92bef41aba6105803d2ded6ea5acf</update_guid>
+<update_guid_history>7ef92bef41aba6105803d2ded6ea5acf:-66660903</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_section_19772feb0faba6109f884bc530d1b2d7</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_section caption="" section_id="19772feb0faba6109f884bc530d1b2d7" sys_domain="global" table="u_certificate_template" version="3" view=""><sys_ui_element action="INSERT_OR_UPDATE"><element>u_html_template</element><position>1</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:30:45</sys_created_on><sys_id>baf92bef0faba6109f884bc530d1b2c4</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="u_certificate_template" sys_domain="global" view="Default view">19772feb0faba6109f884bc530d1b2d7</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:30:45</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>u_template_name</element><position>2</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:31:45</sys_created_on><sys_id>dd3a6fef0faba6109f884bc530d1b2ef</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="u_certificate_template" sys_domain="global" view="Default view">19772feb0faba6109f884bc530d1b2d7</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:31:45</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_section action="INSERT_OR_UPDATE"><caption/><header>false</header><name>u_certificate_template</name><roles/><sys_class_name>sys_ui_section</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:43</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>19772feb0faba6109f884bc530d1b2d7</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_certificate_template</sys_name><sys_overrides/><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ui_section_19772feb0faba6109f884bc530d1b2d7</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:43</sys_updated_on><sys_user/><title>true</title><view display_value="Default view" name="NULL">Default view</view><view_name/></sys_ui_section></sys_ui_section></record_update>]]></payload>
+<payload_hash>-1399254954</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>080133ab0feba6109f884bc530d1b253</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa887d450000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template</target_name>
+<type>Form Layout</type>
+<update_domain>global</update_domain>
+<update_guid>693a6fef83aba610b167f8f2eb1d9df1</update_guid>
+<update_guid_history>693a6fef83aba610b167f8f2eb1d9df1:-1399254954,f2f92bef6caba6103efd38178fe56ec6:183440268,d9776feb87aba61073e236ea2d26f24a:-231023371</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_u_employee_certificates_table_null</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="" table="u_employee_certificates_table"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label/&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element/&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="Collection"&gt;collection&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;40&lt;/max_length&gt;&lt;name&gt;u_employee_certificates_table&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:28:17&lt;/sys_created_on&gt;&lt;sys_id&gt;e269e7af0faba6109f884bc530d1b2f6&lt;/sys_id&gt;&lt;sys_name&gt;u_employee_certificates_table&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_u_employee_certificates_table_null&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:28:17&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1242252969</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>0801ff6b0feba6109f884bc530d1b2f8</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa8551010000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>66692baf7caba610245a62541101b60b</update_guid>
+<update_guid_history>66692baf7caba610245a62541101b60b:1242252969</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_role_aa69e7af0faba6109f884bc530d1b2b5</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:16</sys_created_on><sys_id>aa69e7af0faba6109f884bc530d1b2b5</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table.u_employee_certificates_table_user</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_security_acl display_value="u_employee_certificates_table">d269e7af0faba6109f884bc530d1b2ad</sys_security_acl><sys_update_name>sys_security_acl_role_aa69e7af0faba6109f884bc530d1b2b5</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:16</sys_updated_on><sys_user_role display_value="u_employee_certificates_table_user" name="u_employee_certificates_table_user">16696baf0f23a6109f884bc530d1b269</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+<payload_hash>-512039828</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>0c0133ab0feba6109f884bc530d1b252</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854e2e0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table.u_employee_certificates_table_user</target_name>
+<type>Access Roles</type>
+<update_domain>global</update_domain>
+<update_guid>ee69e7affdaba610c69e2bb7f2887ebb</update_guid>
+<update_guid_history>ee69e7affdaba610c69e2bb7f2887ebb:-512039828</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_incident_u_template</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="u_template" table="incident"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;Template&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;u_template&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="Reference"&gt;reference&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;32&lt;/max_length&gt;&lt;name&gt;incident&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference display_value="" name="u_certificate_template"&gt;u_certificate_template&lt;/reference&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:19:18&lt;/sys_created_on&gt;&lt;sys_id&gt;8d86a7ab0faba6109f884bc530d1b2df&lt;/sys_id&gt;&lt;sys_name&gt;Template&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_incident_u_template&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:19:18&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-75874545</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>0c01ff6b0feba6109f884bc530d1b2f7</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d17cb0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>incident</table>
+<target_name>Incident.Template</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>03576bebb9aba6102a6417f828f67987</update_guid>
+<update_guid_history>03576bebb9aba6102a6417f828f67987:-75874545</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_incident_u_template_en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="u_template" label="Template" language="en" table="incident"><sys_documentation action="INSERT_OR_UPDATE"><element>u_template</element><help/><hint/><label>Template</label><language>en</language><name>incident</name><plural>Templates</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:18</sys_created_on><sys_id>03576beb0faba6109f884bc530d1b27e</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Template</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_incident_u_template_en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:18</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>-422709037</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>4001ff6b0feba6109f884bc530d1b2f9</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d17df0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>incident</table>
+<target_name>Incident.Template</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>cb576beb0baba610d567ef86aef4fe88</update_guid>
+<update_guid_history>cb576beb0baba610d567ef86aef4fe88:-422709037</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_module_a2576beb0faba6109f884bc530d1b228</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_module"><sys_ui_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="Self-Service">c4b9454847210100ba13a5554ee490ca</application><filter/><name>Certificate Templates</name><order/><path/><path_relative_to_root>false</path_relative_to_root><roles/><sys_class_name>sys_ui_module</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:16</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>a2576beb0faba6109f884bc530d1b228</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Certificate Templates</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ui_module_a2576beb0faba6109f884bc530d1b228</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:16</sys_updated_on><table>u_certificate_template</table><uncancelable>false</uncancelable><view_name/></sys_ui_module></record_update>]]></payload>
+<payload_hash>1311253948</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>440133ab0feba6109f884bc530d1b253</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d0e5f0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Templates</target_name>
+<type>Module</type>
+<update_domain>global</update_domain>
+<update_guid>aa576beb24aba610cf327ed86a89612a</update_guid>
+<update_guid_history>aa576beb24aba610cf327ed86a89612a:1311253948</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_u_certificate_template_u_template_name</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="u_template_name" table="u_certificate_template"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;Template Name&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;true&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;u_template_name&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="String"&gt;string&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;100&lt;/max_length&gt;&lt;name&gt;u_certificate_template&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:31:45&lt;/sys_created_on&gt;&lt;sys_id&gt;c42a6fef0faba6109f884bc530d1b29c&lt;/sys_id&gt;&lt;sys_name&gt;Template Name&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_u_certificate_template_u_template_name&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:48:30&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-674814722</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>4401ff6b0feba6109f884bc530d1b2f8</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa97d52f0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template.Template Name</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>ba0e2b67bceba6106918ff11300bf9ac</update_guid>
+<update_guid_history>ba0e2b67bceba6106918ff11300bf9ac:-674814722,ed3aefefc8aba610710b131fb7941e54:158810209</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_role_6e69e7af0faba6109f884bc530d1b2d9</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>6e69e7af0faba6109f884bc530d1b2d9</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table.u_employee_certificates_table_user</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_security_acl display_value="u_employee_certificates_table">6269e7af0faba6109f884bc530d1b2c8</sys_security_acl><sys_update_name>sys_security_acl_role_6e69e7af0faba6109f884bc530d1b2d9</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><sys_user_role display_value="u_employee_certificates_table_user" name="u_employee_certificates_table_user">16696baf0f23a6109f884bc530d1b269</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+<payload_hash>603954796</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>480133ab0feba6109f884bc530d1b252</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854efe0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table.u_employee_certificates_table_user</target_name>
+<type>Access Roles</type>
+<update_domain>global</update_domain>
+<update_guid>2269e7af41aba610c0417f65169e52de</update_guid>
+<update_guid_history>2269e7af41aba610c0417f65169e52de:603954796</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_db_object_96576b2b0f67a6109f884bc530d1b26b</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object"><sys_db_object action="INSERT_OR_UPDATE"><access>public</access><actions_access>false</actions_access><alter_access>false</alter_access><caller_access/><client_scripts_access>false</client_scripts_access><configuration_access>false</configuration_access><create_access>false</create_access><create_access_controls>false</create_access_controls><delete_access>false</delete_access><filter_extension/><is_df_table>false</is_df_table><is_extendable>false</is_extendable><label>Certificate Template</label><live_feed_enabled>false</live_feed_enabled><name>u_certificate_template</name><number_ref/><provider_class/><read_access>true</read_access><scriptable_table>false</scriptable_table><super_class/><sys_class_name>sys_db_object</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:16</sys_created_on><sys_id>96576b2b0f67a6109f884bc530d1b26b</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Certificate Template</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_db_object_96576b2b0f67a6109f884bc530d1b26b</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:16</sys_updated_on><update_access>false</update_access><user_role/><ws_access>true</ws_access></sys_db_object></record_update>]]></payload>
+<payload_hash>1750431492</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>4801ff6b0feba6109f884bc530d1b2f7</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d14df0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template</target_name>
+<type>Table</type>
+<update_domain>global</update_domain>
+<update_guid>7e576beb33aba6105ddac7dbe114f963</update_guid>
+<update_guid_history>7e576beb33aba6105ddac7dbe114f963:1750431492</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_a669e7af0faba6109f884bc530d1b2bd</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl"><sys_security_acl action="INSERT_OR_UPDATE"><active>true</active><admin_overrides>true</admin_overrides><advanced>false</advanced><applies_to/><condition/><controlled_by_refs/><decision_type>allow</decision_type><description>Default access control on u_employee_certificates_table</description><local_or_existing>Existing</local_or_existing><name>u_employee_certificates_table</name><operation display_value="read">read</operation><script/><security_attribute/><sys_class_name>sys_security_acl</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>a669e7af0faba6109f884bc530d1b2bd</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_security_acl_a669e7af0faba6109f884bc530d1b2bd</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><type display_value="record">record</type></sys_security_acl></record_update>]]></payload>
+<payload_hash>-1445040743</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>4c0133ab0feba6109f884bc530d1b251</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854e6e0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table</target_name>
+<type>Access Control</type>
+<update_domain>global</update_domain>
+<update_guid>6a69e7afb5aba6109f27ecf1764b7fc1</update_guid>
+<update_guid_history>6a69e7afb5aba6109f27ecf1764b7fc1:-1445040743</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_u_employee_certificates_table_u_template_en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="u_template" label="Template" language="en" table="u_employee_certificates_table"><sys_documentation action="INSERT_OR_UPDATE"><element>u_template</element><help/><hint/><label>Template</label><language>en</language><name>u_employee_certificates_table</name><plural>Templates</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:29:00</sys_created_on><sys_id>09992faf0faba6109f884bc530d1b241</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Template</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_u_employee_certificates_table_u_template_en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:29:00</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>-596449091</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>4c01ff6b0feba6109f884bc530d1b2f9</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa85f8db0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table.Template</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>01996faf03aba6100cef89a18f840420</update_guid>
+<update_guid_history>01996faf03aba6100cef89a18f840420:-596449091</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_list_u_certificate_template_sys_ref_list</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_list parent="" relationship="" sys_domain="global" table="u_certificate_template" version="2" view="sys_ref_list"><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>u_template_name</element><list_id display_value="u_certificate_template" element="NULL" name="u_certificate_template" parent="NULL" relationship="NULL" sys_domain="global" view="65938073e13222108bb2327e625886d3">5badaf270feba6109f884bc530d1b248</list_id><max_value>false</max_value><min_value>false</min_value><position>0</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:46:54</sys_created_on><sys_id>d3adaf270feba6109f884bc530d1b249</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:46:54</sys_updated_on></sys_ui_list_element><sys_ui_list_element action="INSERT_OR_UPDATE"><average_value>false</average_value><element>sys_id</element><list_id display_value="u_certificate_template" element="NULL" name="u_certificate_template" parent="NULL" relationship="NULL" sys_domain="global" view="65938073e13222108bb2327e625886d3">5badaf270feba6109f884bc530d1b248</list_id><max_value>false</max_value><min_value>false</min_value><position>1</position><sum>false</sum><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:46:54</sys_created_on><sys_id>d7adaf270feba6109f884bc530d1b249</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:46:54</sys_updated_on></sys_ui_list_element><sys_ui_list action="INSERT_OR_UPDATE"><average_value>false</average_value><element/><max_value>false</max_value><min_value>false</min_value><name>u_certificate_template</name><parent/><position/><relationship/><sum>false</sum><sys_class_name>sys_ui_list</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:46:54</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>5badaf270feba6109f884bc530d1b248</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_certificate_template</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ui_list_u_certificate_template_sys_ref_list</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:46:54</sys_updated_on><sys_user/><view display_value="Reference List" name="sys_ref_list">65938073e13222108bb2327e625886d3</view><view_name/></sys_ui_list></sys_ui_list></record_update>]]></payload>
+<payload_hash>-1396410391</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>800133ab0feba6109f884bc530d1b253</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa965ac90000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template</target_name>
+<type>List Layout</type>
+<update_domain>global</update_domain>
+<update_guid>53adaf27bdeba610857ad5a439557c4b</update_guid>
+<update_guid_history>53adaf27bdeba610857ad5a439557c4b:-1396410391,d39d2f27e2eba61003027c2635503ebf:-551963247,df9d2f27beeba610fad09586e13ec0b8:-629027981</update_guid_history>
+<update_set display_value=""/>
+<view>sys_ref_list</view>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_u_certificate_template_u_html_template</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="u_html_template" table="u_certificate_template"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;HTML Template&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;u_html_template&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="HTML"&gt;html&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;8000&lt;/max_length&gt;&lt;name&gt;u_certificate_template&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:30:45&lt;/sys_created_on&gt;&lt;sys_id&gt;14e927ef0faba6109f884bc530d1b202&lt;/sys_id&gt;&lt;sys_name&gt;HTML Template&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_u_certificate_template_u_html_template&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:30:45&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-2053021038</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>8001ff6b0feba6109f884bc530d1b2f8</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa87942c0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template.HTML Template</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>b2f92bef48aba610043145340bb145ce</update_guid>
+<update_guid_history>b2f92bef48aba610043145340bb145ce:-2053021038</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_role_2a69e7af0faba6109f884bc530d1b2e4</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>2a69e7af0faba6109f884bc530d1b2e4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table.u_employee_certificates_table_user</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_security_acl display_value="u_employee_certificates_table">e269e7af0faba6109f884bc530d1b2df</sys_security_acl><sys_update_name>sys_security_acl_role_2a69e7af0faba6109f884bc530d1b2e4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><sys_user_role display_value="u_employee_certificates_table_user" name="u_employee_certificates_table_user">16696baf0f23a6109f884bc530d1b269</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+<payload_hash>-1007677842</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>840133ab0feba6109f884bc530d1b252</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854f5d0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table.u_employee_certificates_table_user</target_name>
+<type>Access Roles</type>
+<update_domain>global</update_domain>
+<update_guid>a269e7afc9aba6103ec8fa790b3f3df5</update_guid>
+<update_guid_history>a269e7afc9aba6103ec8fa790b3f3df5:-1007677842</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_db_object_4f1923af0faba6109f884bc530d1b2a0</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_db_object"><sys_db_object action="INSERT_OR_UPDATE"><access>public</access><actions_access>false</actions_access><alter_access>false</alter_access><caller_access/><client_scripts_access>false</client_scripts_access><configuration_access>false</configuration_access><create_access>false</create_access><create_access_controls>true</create_access_controls><delete_access>false</delete_access><filter_extension/><is_df_table>false</is_df_table><is_extendable>false</is_extendable><label>Employee Certificates table</label><live_feed_enabled>false</live_feed_enabled><name>u_employee_certificates_table</name><number_ref/><provider_class/><read_access>true</read_access><scriptable_table>false</scriptable_table><super_class/><sys_class_name>sys_db_object</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:16</sys_created_on><sys_id>4f1923af0faba6109f884bc530d1b2a0</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Employee Certificates table</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_db_object_4f1923af0faba6109f884bc530d1b2a0</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:16</sys_updated_on><update_access>false</update_access><user_role display_value="u_employee_certificates_table_user" name="u_employee_certificates_table_user">16696baf0f23a6109f884bc530d1b269</user_role><ws_access>true</ws_access></sys_db_object></record_update>]]></payload>
+<payload_hash>304024256</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>8401ff6b0feba6109f884bc530d1b2f7</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa8551240000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table</target_name>
+<type>Table</type>
+<update_domain>global</update_domain>
+<update_guid>ea692baf93aba610c86fcde045691a0e</update_guid>
+<update_guid_history>ea692baf93aba610c86fcde045691a0e:304024256</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_6269e7af0faba6109f884bc530d1b2c8</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl"><sys_security_acl action="INSERT_OR_UPDATE"><active>true</active><admin_overrides>true</admin_overrides><advanced>false</advanced><applies_to/><condition/><controlled_by_refs/><decision_type>allow</decision_type><description>Default access control on u_employee_certificates_table</description><local_or_existing>Existing</local_or_existing><name>u_employee_certificates_table</name><operation display_value="write">write</operation><script/><security_attribute/><sys_class_name>sys_security_acl</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>6269e7af0faba6109f884bc530d1b2c8</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_security_acl_6269e7af0faba6109f884bc530d1b2c8</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><type display_value="record">record</type></sys_security_acl></record_update>]]></payload>
+<payload_hash>1826868765</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>880133ab0feba6109f884bc530d1b251</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854ed10000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table</target_name>
+<type>Access Control</type>
+<update_domain>global</update_domain>
+<update_guid>ea69e7affcaba6106f404ebed2a077d8</update_guid>
+<update_guid_history>ea69e7affcaba6106f404ebed2a077d8:1826868765</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_u_certificate_template__en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="" label="Certificate Template" language="en" table="u_certificate_template"><sys_documentation action="INSERT_OR_UPDATE"><element/><help/><hint/><label>Certificate Template</label><language>en</language><name>u_certificate_template</name><plural>Certificate Templates</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:17</sys_created_on><sys_id>32576beb0faba6109f884bc530d1b24f</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Certificate Template</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_u_certificate_template__en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:17</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>-8722205</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>8801ff6b0feba6109f884bc530d1b2f9</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d14cd0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>36576bebc7aba610ff7888643d0f0b62</update_guid>
+<update_guid_history>36576bebc7aba610ff7888643d0f0b62:-8722205</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_user_role_16696baf0f23a6109f884bc530d1b269</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role"><sys_user_role action="INSERT_OR_UPDATE"><assignable_by/><can_delegate>true</can_delegate><description/><elevated_privilege>false</elevated_privilege><grantable>true</grantable><includes_roles/><name>u_employee_certificates_table_user</name><scoped_admin>false</scoped_admin><suffix/><sys_class_name>sys_user_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:16</sys_created_on><sys_id>16696baf0f23a6109f884bc530d1b269</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table_user</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_user_role_16696baf0f23a6109f884bc530d1b269</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:16</sys_updated_on></sys_user_role></record_update>]]></payload>
+<payload_hash>-1372234889</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>8c0133ab0feba6109f884bc530d1b253</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854ae40000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table/>
+<target_name>u_employee_certificates_table_user</target_name>
+<type>Role</type>
+<update_domain>global</update_domain>
+<update_guid>1a69e7af42aba6104ab3682573c17aaa</update_guid>
+<update_guid_history>1a69e7af42aba6104ab3682573c17aaa:-1372234889</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_app_module_66576b2b0f67a6109f884bc530d1b26f</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_app_module"><sys_app_module action="INSERT_OR_UPDATE"><active>true</active><application display_value="Self-Service">08771d0cc0a8016401f604303b94b999</application><assessment/><device_type/><filter/><hint/><homepage/><image/><link_type>LIST</link_type><map_page/><mobile_title>Certificate Templates</mobile_title><mobile_view_name>Mobile</mobile_view_name><name>u_certificate_template</name><order/><override_menu_roles>false</override_menu_roles><query/><report/><require_confirmation>true</require_confirmation><roles/><sys_class_name>sys_app_module</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:16</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>66576b2b0f67a6109f884bc530d1b26f</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Certificate Templates</sys_name><sys_overrides/><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_app_module_66576b2b0f67a6109f884bc530d1b26f</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:16</sys_updated_on><timeline_page/><title>Certificate Templates</title><uncancelable>false</uncancelable><view_name/><window_name/></sys_app_module></record_update>]]></payload>
+<payload_hash>-2106579732</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>8c01ff6b0feba6109f884bc530d1b2f6</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d0e1f0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Templates</target_name>
+<type>Module</type>
+<update_domain>global</update_domain>
+<update_guid>2e576b2bfc67a610bd22852914e72b72</update_guid>
+<update_guid_history>2e576b2bfc67a610bd22852914e72b72:-2106579732</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_u_employee_certificates_table_u_user</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="u_user" table="u_employee_certificates_table"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;User&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;u_user&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="Reference"&gt;reference&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;32&lt;/max_length&gt;&lt;name&gt;u_employee_certificates_table&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference display_value="" name="sys_user"&gt;sys_user&lt;/reference&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:29:38&lt;/sys_created_on&gt;&lt;sys_id&gt;1f99efaf0faba6109f884bc530d1b237&lt;/sys_id&gt;&lt;sys_name&gt;User&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_u_employee_certificates_table_u_user&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:29:38&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-575464963</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>8c01ff6b0feba6109f884bc530d1b2f8</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa868c450000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table.User</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>16b963ef85aba610f425ec8ccaf65165</update_guid>
+<update_guid_history>16b963ef85aba610f425ec8ccaf65165:-575464963</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_e269e7af0faba6109f884bc530d1b2df</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl"><sys_security_acl action="INSERT_OR_UPDATE"><active>true</active><admin_overrides>true</admin_overrides><advanced>false</advanced><applies_to/><condition/><controlled_by_refs/><decision_type>allow</decision_type><description>Default access control on u_employee_certificates_table</description><local_or_existing>Existing</local_or_existing><name>u_employee_certificates_table</name><operation display_value="delete">delete</operation><script/><security_attribute/><sys_class_name>sys_security_acl</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>e269e7af0faba6109f884bc530d1b2df</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_security_acl_e269e7af0faba6109f884bc530d1b2df</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><type display_value="record">record</type></sys_security_acl></record_update>]]></payload>
+<payload_hash>104728367</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c00133ab0feba6109f884bc530d1b252</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854f310000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table</target_name>
+<type>Access Control</type>
+<update_domain>global</update_domain>
+<update_guid>a669e7afcdaba610f6dd571062d078e3</update_guid>
+<update_guid_history>a669e7afcdaba610f6dd571062d078e3:104728367</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_u_employee_certificates_table__en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="" label="Employee Certificates table" language="en" table="u_employee_certificates_table"><sys_documentation action="INSERT_OR_UPDATE"><element/><help/><hint/><label>Employee Certificates table</label><language>en</language><name>u_employee_certificates_table</name><plural>Employee Certificates tables</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>2269e7af0faba6109f884bc530d1b2fc</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Employee Certificates table</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_u_employee_certificates_table__en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>-880163837</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c001ff6b0feba6109f884bc530d1b2fa</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa8551150000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>a2692bafecaba610afe4117e0474e40d</update_guid>
+<update_guid_history>a2692bafecaba610afe4117e0474e40d:-880163837</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_9cabef630feba6109f884bc530d1b21e</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script"&gt;&lt;sys_script action="INSERT_OR_UPDATE"&gt;&lt;abort_action&gt;false&lt;/abort_action&gt;&lt;access&gt;package_private&lt;/access&gt;&lt;action_delete&gt;false&lt;/action_delete&gt;&lt;action_insert&gt;true&lt;/action_insert&gt;&lt;action_query&gt;false&lt;/action_query&gt;&lt;action_update&gt;true&lt;/action_update&gt;&lt;active&gt;true&lt;/active&gt;&lt;add_message&gt;false&lt;/add_message&gt;&lt;advanced&gt;true&lt;/advanced&gt;&lt;change_fields&gt;false&lt;/change_fields&gt;&lt;client_callable&gt;false&lt;/client_callable&gt;&lt;collection&gt;incident&lt;/collection&gt;&lt;condition/&gt;&lt;description/&gt;&lt;execute_function&gt;false&lt;/execute_function&gt;&lt;filter_condition table="incident"&gt;u_templateISNOTEMPTY^EQ&lt;item endquery="false" field="u_template" goto="false" newquery="false" operator="ISNOTEMPTY" or="false" value=""/&gt;&lt;item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/&gt;&lt;/filter_condition&gt;&lt;is_rest&gt;false&lt;/is_rest&gt;&lt;message/&gt;&lt;name&gt;ServiceNow PDF generator API&lt;/name&gt;&lt;order&gt;100&lt;/order&gt;&lt;priority&gt;100&lt;/priority&gt;&lt;rest_method/&gt;&lt;rest_method_text/&gt;&lt;rest_service/&gt;&lt;rest_service_text/&gt;&lt;rest_variables/&gt;&lt;role_conditions/&gt;&lt;script&gt;&lt;![CDATA[(function executeRule(current, previous /*null when async*/) {
+
+	// Add your code here
+
+	var html = current.u_template.u_html_template;
+    var targetTable = 'sys_user';
+    var UpdatedHTML =html.replace('Employee_name',current.getDisplayValue('caller_id'));
+    var Updateddate = UpdatedHTML.replace('Date', current.getDisplayValue('sys_created_by'));
+
+    var targetTableSysId = current.getValue('caller_id');
+    var pdfName = current.getDisplayValue('caller_id');
+
+    var v = new sn_pdfgeneratorutils.PDFGenerationAPI;
+
+    var result = v.convertToPDF(Updateddate, targetTable, targetTableSysId, pdfName);
+    current.update();
+
+})(current, previous);]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:39:56&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;9cabef630feba6109f884bc530d1b21e&lt;/sys_id&gt;&lt;sys_mod_count&gt;4&lt;/sys_mod_count&gt;&lt;sys_name&gt;ServiceNow PDF generator API&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_9cabef630feba6109f884bc530d1b21e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:56:00&lt;/sys_updated_on&gt;&lt;template/&gt;&lt;when&gt;before&lt;/when&gt;&lt;/sys_script&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=9cabef630feba6109f884bc530d1b21e"/&gt;&lt;sys_es_latest_script action="INSERT_OR_UPDATE"&gt;&lt;id&gt;9cabef630feba6109f884bc530d1b21e&lt;/id&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:39:56&lt;/sys_created_on&gt;&lt;sys_id&gt;551ca3a30feba6109f884bc530d1b2c2&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:39:56&lt;/sys_updated_on&gt;&lt;table&gt;sys_script&lt;/table&gt;&lt;use_es_latest&gt;true&lt;/use_es_latest&gt;&lt;/sys_es_latest_script&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1205695602</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c40133ab0feba6109f884bc530d1b251</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa9eb0b00000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>incident</table>
+<target_name>ServiceNow PDF generator API</target_name>
+<type>Business Rule</type>
+<update_domain>global</update_domain>
+<update_guid>64cfa32bfbeba61035882c35b0b2cdf1</update_guid>
+<update_guid_history>64cfa32bfbeba61035882c35b0b2cdf1:1205695602,62afefe7ffeba6105868ddff425698c1:-459728940,497fefa70eeba610f7fc510c7839aade:1594606256,a77e63af3faba61041e5b59901867652:1376527153,9d1c2ba384eba6100f4884eaf0b39d83:-68048221</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_documentation_u_certificate_template_u_template_name_en</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_documentation element="u_template_name" label="Template Name" language="en" table="u_certificate_template"><sys_documentation action="INSERT_OR_UPDATE"><element>u_template_name</element><help/><hint/><label>Template Name</label><language>en</language><name>u_certificate_template</name><plural>Template Names</plural><sys_class_name>sys_documentation</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:31:45</sys_created_on><sys_id>613a6fef0faba6109f884bc530d1b2f3</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Template Name</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_documentation_u_certificate_template_u_template_name_en</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:31:45</sys_updated_on><url/><url_target/></sys_documentation></sys_documentation></record_update>]]></payload>
+<payload_hash>1046136657</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c401ff6b0feba6109f884bc530d1b2f9</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa887db50000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template.Template Name</target_name>
+<type>Field Label</type>
+<update_domain>global</update_domain>
+<update_guid>a93aefef2aaba610dfdbf1599d516256</update_guid>
+<update_guid_history>a93aefef2aaba610dfdbf1599d516256:1046136657</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_ui_section_bf1d96e3c0a801640190725e63f8ac80</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_section caption="" section_id="bf1d96e3c0a801640190725e63f8ac80" sys_domain="global" table="incident" version="3" view=""><sys_ui_element action="INSERT_OR_UPDATE"><element>number</element><position>0</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>2d1af70c871410107e31af1e36cb0b6c</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>caller_id</element><position>1</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>ad1af70c871410107e31af1e36cb0b6c</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>category</element><position>2</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>211af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>subcategory</element><position>3</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a11af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>business_service</element><position>4</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>251af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>service_offering</element><position>5</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a51af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>cmdb_ci</element><position>6</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>291af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>universal_request</element><position>7</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a91af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>route_reason</element><position>8</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>2d1af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>.split</element><position>9</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>ad1af70c871410107e31af1e36cb0b6d</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type>.split</type></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>contact_type</element><position>10</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>211af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>state</element><position>11</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a11af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>hold_reason</element><position>12</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>251af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>impact</element><position>13</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a51af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>urgency</element><position>14</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>291af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>priority</element><position>15</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a91af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>assignment_group</element><position>16</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>2d1af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>assigned_to</element><position>17</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>ad1af70c871410107e31af1e36cb0b6e</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>.end_split</element><position>18</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>211af70c871410107e31af1e36cb0b6f</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type>.end_split</type></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>short_description</element><position>19</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a11af70c871410107e31af1e36cb0b6f</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>description</element><position>20</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>251af70c871410107e31af1e36cb0b6f</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>cxs_table_search.xml</element><position>21</position><sys_created_by>admin</sys_created_by><sys_created_on>2020-04-16 11:37:57</sys_created_on><sys_id>a51af70c871410107e31af1e36cb0b6f</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter display_value="Contextual Search Results">11eb1622eb1121003623666cd206fe56</sys_ui_formatter><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2020-04-16 11:37:57</sys_updated_on><sys_user/><type>formatter</type></sys_ui_element><sys_ui_element action="INSERT_OR_UPDATE"><element>u_template</element><position>22</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:19:18</sys_created_on><sys_id>43576beb0faba6109f884bc530d1b279</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="NULL" display_value="" name="incident" sys_domain="global" view="Default view">bf1d96e3c0a801640190725e63f8ac80</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:19:18</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_section action="INSERT_OR_UPDATE"><caption/><header>false</header><name>incident</name><roles/><sys_class_name>sys_ui_section</sys_class_name><sys_created_by>fred.luddy</sys_created_by><sys_created_on>2004-07-14 19:25:13</sys_created_on><sys_domain>global</sys_domain><sys_domain_path/><sys_id>bf1d96e3c0a801640190725e63f8ac80</sys_id><sys_mod_count>0</sys_mod_count><sys_name>incident</sys_name><sys_overrides/><sys_package display_value="Incident Updates" source="com.snc.incident.updates">652e8477e1b622108bb2327e62588647</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_ui_section_bf1d96e3c0a801640190725e63f8ac80</sys_update_name><sys_updated_by>system_bootstrap</sys_updated_by><sys_updated_on>2004-12-13 18:05:34</sys_updated_on><sys_user/><title>true</title><view display_value="Default view" name="NULL">Default view</view><view_name/></sys_ui_section></sys_ui_section></record_update>]]></payload>
+<payload_hash>-1596781311</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c80133ab0feba6109f884bc530d1b253</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d15bc0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>incident</table>
+<target_name>Incident</target_name>
+<type>Form Layout</type>
+<update_domain>global</update_domain>
+<update_guid>4b576bebdfaba6100a900ae55970037c</update_guid>
+<update_guid_history>4b576bebdfaba6100a900ae55970037c:-1596781311</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_u_employee_certificates_table_u_template</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="u_template" table="u_employee_certificates_table"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label&gt;Template&lt;/column_label&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element&gt;u_template&lt;/element&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="Reference"&gt;reference&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;32&lt;/max_length&gt;&lt;name&gt;u_employee_certificates_table&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference display_value="" name="u_certificate_template"&gt;u_certificate_template&lt;/reference&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:29:00&lt;/sys_created_on&gt;&lt;sys_id&gt;20796baf0faba6109f884bc530d1b2df&lt;/sys_id&gt;&lt;sys_name&gt;Template&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_u_employee_certificates_table_u_template&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:29:00&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-397916833</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>c801ff6b0feba6109f884bc530d1b2f8</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa85f8c60000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>Employee Certificates table.Template</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>81996faf16aba610872a6a6de322fc1e</update_guid>
+<update_guid_history>81996faf16aba610872a6a6de322fc1e:-397916833</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_security_acl_role_ea69e7af0faba6109f884bc530d1b2c2</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role"><sys_security_acl_role action="INSERT_OR_UPDATE"><sys_class_name>sys_security_acl_role</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-08-30 10:28:17</sys_created_on><sys_id>ea69e7af0faba6109f884bc530d1b2c2</sys_id><sys_mod_count>0</sys_mod_count><sys_name>u_employee_certificates_table.u_employee_certificates_table_user</sys_name><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_security_acl display_value="u_employee_certificates_table">a669e7af0faba6109f884bc530d1b2bd</sys_security_acl><sys_update_name>sys_security_acl_role_ea69e7af0faba6109f884bc530d1b2c2</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-08-30 10:28:17</sys_updated_on><sys_user_role display_value="u_employee_certificates_table_user" name="u_employee_certificates_table_user">16696baf0f23a6109f884bc530d1b269</sys_user_role></sys_security_acl_role></record_update>]]></payload>
+<payload_hash>1003207718</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>cc0133ab0feba6109f884bc530d1b252</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa854e9d0000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_employee_certificates_table</table>
+<target_name>u_employee_certificates_table.u_employee_certificates_table_user</target_name>
+<type>Access Roles</type>
+<update_domain>global</update_domain>
+<update_guid>ae69e7af58aba6109fcd4a03adfe1ec6</update_guid>
+<update_guid_history>ae69e7af58aba6109fcd4a03adfe1ec6:1003207718</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_dictionary_u_certificate_template_null</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update&gt;&lt;sys_dictionary action="INSERT_OR_UPDATE" element="" table="u_certificate_template"&gt;&lt;active&gt;true&lt;/active&gt;&lt;array&gt;false&lt;/array&gt;&lt;attributes/&gt;&lt;audit&gt;false&lt;/audit&gt;&lt;calculation&gt;&lt;![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]&gt;&lt;/calculation&gt;&lt;choice/&gt;&lt;choice_field/&gt;&lt;choice_table/&gt;&lt;column_label/&gt;&lt;comments/&gt;&lt;create_roles/&gt;&lt;default_value/&gt;&lt;defaultsort/&gt;&lt;delete_roles/&gt;&lt;dependent/&gt;&lt;dependent_on_field/&gt;&lt;display&gt;false&lt;/display&gt;&lt;dynamic_creation&gt;false&lt;/dynamic_creation&gt;&lt;dynamic_creation_script/&gt;&lt;dynamic_default_value/&gt;&lt;dynamic_ref_qual/&gt;&lt;element/&gt;&lt;element_reference&gt;false&lt;/element_reference&gt;&lt;foreign_database/&gt;&lt;formula/&gt;&lt;function_definition/&gt;&lt;function_field&gt;false&lt;/function_field&gt;&lt;internal_type display_value="Collection"&gt;collection&lt;/internal_type&gt;&lt;mandatory&gt;false&lt;/mandatory&gt;&lt;max_length&gt;40&lt;/max_length&gt;&lt;name&gt;u_certificate_template&lt;/name&gt;&lt;next_element/&gt;&lt;primary&gt;false&lt;/primary&gt;&lt;read_only&gt;false&lt;/read_only&gt;&lt;read_roles/&gt;&lt;reference/&gt;&lt;reference_cascade_rule/&gt;&lt;reference_floats&gt;false&lt;/reference_floats&gt;&lt;reference_key/&gt;&lt;reference_qual/&gt;&lt;reference_qual_condition/&gt;&lt;reference_type/&gt;&lt;spell_check&gt;false&lt;/spell_check&gt;&lt;staged&gt;false&lt;/staged&gt;&lt;sys_class_name&gt;sys_dictionary&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-08-30 10:19:16&lt;/sys_created_on&gt;&lt;sys_id&gt;ee576beb0faba6109f884bc530d1b22b&lt;/sys_id&gt;&lt;sys_name&gt;u_certificate_template&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_dictionary_u_certificate_template_null&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-08-30 10:19:16&lt;/sys_updated_on&gt;&lt;table_reference&gt;false&lt;/table_reference&gt;&lt;text_index&gt;false&lt;/text_index&gt;&lt;unique&gt;false&lt;/unique&gt;&lt;use_dependent_field&gt;false&lt;/use_dependent_field&gt;&lt;use_dynamic_default&gt;false&lt;/use_dynamic_default&gt;&lt;use_reference_qualifier&gt;simple&lt;/use_reference_qualifier&gt;&lt;virtual&gt;false&lt;/virtual&gt;&lt;virtual_type&gt;script&lt;/virtual_type&gt;&lt;widget/&gt;&lt;write_roles/&gt;&lt;xml_view&gt;false&lt;/xml_view&gt;&lt;/sys_dictionary&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-32859499</payload_hash>
+<remote_update_set display_value="PDFGeneration_Example">c801ff6b0feba6109f884bc530d1b2f6</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2025-08-30 11:01:26</sys_created_on>
+<sys_id>cc01ff6b0feba6109f884bc530d1b2f7</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>198fa7d14b40000001</sys_recorded_at>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2025-08-30 11:01:26</sys_updated_on>
+<table>u_certificate_template</table>
+<target_name>Certificate Template</target_name>
+<type>Dictionary</type>
+<update_domain>global</update_domain>
+<update_guid>f6576bebcaaba610aa9b90d97fc75860</update_guid>
+<update_guid_history>f6576bebcaaba610aa9b90d97fc75860:-32859499</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
