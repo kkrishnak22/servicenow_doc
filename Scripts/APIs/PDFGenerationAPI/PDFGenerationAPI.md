@@ -198,8 +198,6 @@ var downloadURL = "/sys_attachment.do?sys_id=" + pdfSysId + "&view=true";
 ```
 
 
-
-
 # ☕ Java Reference — Calling Functions
 
 In Java, there are **two main ways** to call a function (method):
