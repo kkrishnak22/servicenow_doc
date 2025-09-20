@@ -326,5 +326,5 @@ This comprehensive guide provides the foundation for understanding HRSD concepts
 
 ![alt text](who_uses_hrsd.png)
 
-hrsd_benefits.png
+(hrsd_benefits.png)
 
