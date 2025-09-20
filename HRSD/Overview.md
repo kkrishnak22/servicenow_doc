@@ -323,4 +323,8 @@ This comprehensive guide provides the foundation for understanding HRSD concepts
 
 
 
-![alt text](image.png)
+![alt text](current_hr_state.png)
+
+![alt text](who_uses_hrsd.png)
+
+
