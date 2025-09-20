@@ -321,3 +321,6 @@
 
 This comprehensive guide provides the foundation for understanding HRSD concepts, practical applications, and prepares you for both implementation work and interview scenarios.
 
+
+
+![alt text](image.png)
