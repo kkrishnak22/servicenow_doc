@@ -328,3 +328,8 @@ This comprehensive guide provides the foundation for understanding HRSD concepts
 
 ![alt text](./images/hrsd_benefits.png)
 
+![alt text](./images/hrsd_applications.png)
+
+![alt text](./images/hrsd_scoped_admin_roles.png)
+
+![alt text](./images/restrict_access_to_hr_application.png)
