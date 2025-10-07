@@ -39,6 +39,34 @@ The following are the essential HR roles discussed in the training module:
 
 ---
 
+![alt text](./images/core_hrsd_roles.png)
+![alt text](./images/roles_contain_other_roles.png)
+
+
+## Roles Determine Usage in ServiceNow HRSD
+
+In ServiceNow HR Service Delivery (HRSD), roles govern a user's ability to interact with the system, determining whether they are primarily an HR professional or a general employee (user).
+
+### 1. Access for HR Professionals (With the `HR Basic` Role)
+
+If a user holds the **HR Basic role** (the bare minimum for an HR professional), they have the ability to:
+
+* **Create and manage HR cases and processes.**
+* **Look at employee profiles**, and other related HR data.
+
+### 2. Access for General Employees (Without the `HR Basic` Role)
+
+Users *without* the `HR Basic` role (i.e., general employees or non-HR users) can still utilize many HR services through the platform, including:
+
+* **Search the knowledge base** for articles they have permission to access.
+* **Go to the portal** (typically the Employee Center) and **initiate a chat with HR**.
+* **Select a catalog item** to submit a service request.
+* Have **someone else create an HR request for them**.
+* **Complete any tasks** assigned to them.
+* **See their personal profile information** by visiting the Employee Center.
+
+![alt text](./images/user_roles.png)
+
 ## 3. Interview Questions and Answers
 
 This section includes practical interview questions based on the HRSD Groups and Roles model, along with detailed answers.
@@ -69,4 +97,35 @@ This section includes practical interview questions based on the HRSD Groups and
 | **10.** | **Imagine you need to onboard 10 new HR Agents. Briefly describe the most efficient way to grant them the necessary access.** | The most efficient way is to ensure a dedicated "HR Agents" **group** already exists with the **HR Basic Role** assigned. You then simply **add all 10 new users** to that existing group. They will automatically inherit the required role and permissions. |
 | **11.** | **Why is it important for HR agents with the HR Basic role to have their access limited to only the cases they handle?** | This is crucial for maintaining **data privacy** and adhering to the **principle of least privilege**. It ensures agents only view the highly sensitive HR data (PII) required to complete their specific tasks, reducing security and compliance risks. |
 
-![alt text](./images/core_hrsd_roles.png)
+
+
+---
+
+### Access for Regular Employees (Non-HR Staff)
+
+If you are a regular employee (not an HR professional), you still need a way to talk to HR and find information.
+
+**What you *can* do (even without the main HR role):**
+
+* Go to the **Employee Center portal** (this is like a website for all employees).
+* Start a **chat with HR**.
+* **Select a service** from the list (like requesting a leave or updating your address).
+* Someone else (like a manager or HR) can **start an HR request for you**.
+* You can **complete any tasks** that HR gives you.
+* You can **see your own personal information** (like your address or job details) on the Employee Center.
+
+### How Regular Employees Get Access (Client Roles)
+
+The question is: How does the system know you are allowed to see the portal if you don't have the `HR Basic Role`?
+
+1.  **Automatic Role:** When you are set up as an employee in the system, you are automatically given a special type of role called a **"Client Role."**
+2.  **Identification:** This Client Role simply *identifies* who you are (e.g., "Full-time Employee").
+3.  **Access Control:** The system administrator (the HR Admin or Service Portal Admin) then uses this Client Role to decide **exactly what you can see and do** on the Employee Center portal.
+4.  **Example Role:** A common Client Role is called `hrsp.hrsp_employee`. This name comes from the old name for the portal ("HR Portal"), but the role is now used for the newer **Employee Center**.
+
+**In simple words:**
+
+* **HR Professionals** get the `HR Basic Role` (or Manager/Admin role) which lets them *work* on HR cases.
+* **Regular Employees** get an automatic **Client Role** which lets them *use* the Employee Center portal to *request* HR services and view their own profile.
+
+![alt text](./images/client_roles.png)
