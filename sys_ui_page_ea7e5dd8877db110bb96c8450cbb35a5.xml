@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2026-01-21 05:09:45">
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>htmleditor</category>
+<client_script><![CDATA[function submitCancel() {
+    GlideDialogWindow.get().destroy();
+    return false;
+}
+
+function submitChanges() {
+    var permissiontypechoice = gel('permissionTypevalue').value;
+    if (permissiontypechoice.length < 1) {
+        document.getElementById('permissionType_error').style.backgroundColor = "#FFEBE8";
+        document.getElementById('permissionType_error').style.display = "block";
+        return false;
+    } else document.getElementById('permissionType_error').style.display = "none";
+
+    return true;
+
+}]]></client_script>
+<description/>
+<direct>false</direct>
+<endpoint>x_adga_project_p_0_create_permission_from_project.do</endpoint>
+<html><![CDATA[<g:ui_form>
+	<!--<j:set var="task_id" value="${RP.getWindowProperties().get('sys_id')}" />-->
+	<g:evaluate var="jvar_sysid" expression="RP.getWindowProperties().sysid" />
+	<input type="hidden" id="sysparm_id" name="sysparm_id" value="${jvar_sysid}"/>
+	<style>
+#create_permission .left {
+    max-width: 60px;
+}
+
+#create_permission #yesno {
+    width: 98%
+}
+
+HTML[data-doctype=true] #create_permission #yesno {
+    width: 100%
+}
+</style>
+<table id="create_permission" width="100%">
+  <colgroup>
+    <col/>
+    <col/>
+  </colgroup>
+
+  <g:evaluate var="jvar_group" jelly="true">
+var choiceRecord = new GlideRecord("sys_db_object");
+choiceRecord.addEncodedQuery("super_class=2b501cb8876dbd10bb96c8450cbb3585");       //Parent Permission table sys_id to get all the child tables in the choices.
+choiceRecord.query();
+choiceRecord;
+</g:evaluate>
+ <tr>
+    <td class="left">
+      <label class = "control-label">
+		<span class="icon icon-required required-marker" id="status-mim_rejection_reason_text" mandatory="true" style = "display:inline !important;"></span>
+		  <span for="permissionTypevalue">${gs.getMessage("Permission Type")}</span>
+		</label>
+    </td>
+    <td align="right" style="padding: 0 0 4px 8px;">
+      <select name="permissionTypevalue" id="permissionTypevalue" class="form-control select2">
+        <option/>
+        <j:while test="${choiceRecord.next()}">
+<option value="${choiceRecord.name}">${choiceRecord.label}</option>
+</j:while>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" id="permissionType_error" style="display: none">
+		<div class = "notification-danger">
+			<div><img src='images/outputmsg_error.gifx' alt=''/>${gs.getMessage("Please select Permission Type")}</div>
+		</div>
+         
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2" align="right">
+      <g:dialog_buttons_ok_cancel
+         ok="return submitChanges()"
+         cancel="return submitCancel()" />
+    </td>
+  </tr>
+</table>
+</g:ui_form>]]></html>
+<name>create_permission_from_project</name>
+<processing_script><![CDATA[if(permissionTypevalue != ''){
+response.sendRedirect(permissionTypevalue+'.do?sys_id=-1&sysparm_query=u_project_number='+sysparm_id+'^EQ');
+}]]></processing_script>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>izt.avinash</sys_created_by>
+<sys_created_on>2023-10-06 09:46:51</sys_created_on>
+<sys_id>ea7e5dd8877db110bb96c8450cbb35a5</sys_id>
+<sys_mod_count>10</sys_mod_count>
+<sys_name>create_permission_from_project</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy/>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_ui_page_ea7e5dd8877db110bb96c8450cbb35a5</sys_update_name>
+<sys_updated_by>izt.avinash</sys_updated_by>
+<sys_updated_on>2023-10-06 11:22:34</sys_updated_on>
+</sys_ui_page>
+</unload>
