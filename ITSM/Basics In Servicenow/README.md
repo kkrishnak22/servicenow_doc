@@ -51,3 +51,31 @@ Key guiding principles include:
 | Asset Management           | Track IT assets         |
 
 ---
+
+**What is an Application Menu in ServiceNow?**
+An Application Menu is a container that appears in the Navigator and groups related functionalities together under one application.
+
+---
+
+**Where does the Application Menu appear?**
+It appears in the left navigation pane (Navigator), allowing users to access different modules within an application.
+
+---
+
+**What is a Module in ServiceNow?**
+A Module is a navigational link nested under an Application Menu that opens a specific page, list, form, or functionality when clicked.
+
+---
+
+**Can you give an example of a Module?**
+Yes. Under the **Incident** application menu, a module like **Create New** opens the form to create a new incident.
+
+---
+
+**What is the relationship between Applications and Modules?**
+Applications act as containers, while modules are the individual actionable items inside them.
+
+---
+
+
+`Ctrl+Shift+j` opens a quick code execution block
