@@ -15,6 +15,7 @@ if (typeof window == 'undefined') {
 ```
 
 
+
 **action.setRedirectURL(current);**
 **action.setReturnURL(fixchg);**
 **action.openGlideRecord(incGR);**
