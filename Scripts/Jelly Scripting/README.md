@@ -89,6 +89,18 @@ Namespaces define **what special tags you can use**.
 </j:forEach>
 ```
 
+```xml
+<g:evaluate var="grFTE" jelly="true">
+								var gr = new GlideRecord('x_bgstm_prism_sales_fte_plan');
+								gr.addQuery('opp_id', "${sysparm_parent_id}");
+								gr.orderBy('number');
+								gr.query();
+								gr;
+
+</g:evaluate>
+<j:while test="${gr.next()}">
+</j:while>
+```
 ### Variables
 
 ```xml

@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2026-04-15 06:02:34">
+<sys_script_include action="INSERT_OR_UPDATE">
+<access>package_private</access>
+<active>true</active>
+<api_name>x_adga_project_p_0.ProjectPermissionManagementfromClient</api_name>
+<caller_access/>
+<client_callable>true</client_callable>
+<description/>
+<mobile_callable>false</mobile_callable>
+<name>ProjectPermissionManagementfromClient</name>
+<sandbox_callable>true</sandbox_callable>
+<script><![CDATA[var ProjectPermissionManagementfromClient = Class.create();
+ProjectPermissionManagementfromClient.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	plantcodeDetails: function () {
+		var detail_list = "";
+		var plantSysID = this.getParameter('sysparm_id');
+		var gr = new GlideRecord('u_business_area_plant');
+		gr.get(plantSysID);
+		detail_list = gr.u_plant_code;
+		detail_list = detail_list + ',' + gr.u_geographical_area;
+		detail_list = detail_list + ',' + gr.u_state;
+		detail_list = detail_list + ',' + gr.u_geographical_area.u_pm_group;
+
+		return detail_list;
+	},
+
+	updateProjectDetailsInPaymentTable: function () {
+		var projectSysId;
+		var permissionSysID = this.getParameter('sysparm_id');
+		var gr = new GlideRecord('x_adga_project_p_0_permission');
+		gr.get(permissionSysID);
+		projectSysId = gr.u_project_number;
+		return projectSysId;
+
+	},
+
+	updateVendorCodeDetails: function () {
+		var vendorCode;
+		var vendorSysID = this.getParameter('sysparm_id');
+		var gr = new GlideRecord('core_company');
+		gr.get(vendorSysID);
+		gs.info('the name is: ' + gr.name);
+		vendorCode = gr.u_sap_vendor_code;
+		return vendorCode;
+
+	},
+
+
+	validatescopeactivities: function () {
+		var projectId = this.getParameter('sysparm_project_id');
+		var scopeGR = new GlideRecord('x_adga_project_p_0_scope');
+		scopeGR.addQuery('project', projectId);
+		scopeGR.addQuery('sub_state', '2');
+		scopeGR.query();
+
+		if (scopeGR.next()) {
+			return 'true'; // No scopes found
+		} else {
+			return 'false';
+		}
+
+		// while (scopeGR.next()) {
+		//     var scopeId = scopeGR.getUniqueValue();
+		//     gs.info(scopeId);
+		//     var activityGR = new GlideRecord('x_adga_project_p_0_activities');
+		//     activityGR.addQuery('parent', scopeId);
+		//     activityGR.query();
+
+		//     if (!activityGR.hasNext()) {
+		//         return 'false';
+		//     }
+
+		//     while (activityGR.next()) {
+		//         gs.info("line 64");
+		//         if (!activityGR.scope || activityGR.scope.nil()) {
+		//             return 'false';
+		//         }
+		//     }
+		// }
+
+	},
+
+	getActivitiesByScope: function () {
+		var scopeId = this.getParameter('sysparm_scope_id');
+		var activities = [];
+
+		var gr = new GlideRecord('x_adga_project_p_0_activities');
+		gr.addQuery('parent', scopeId);
+		gr.query();
+
+		while (gr.next()) {
+			activities.push({
+				sys_id: gr.getUniqueValue(),
+				name: gr.getDisplayValue('number'),
+				scope: gr.getValue('scope') || ''
+			});
+		}
+		return JSON.stringify(activities);
+	},
+
+
+	getAssignmentGroupAndVendorScope: function () {
+		var projectId = this.getParameter("sysparm_project_id");
+		var proj = new GlideRecord("x_adga_project_p_0_project");
+		if (proj.get(projectId)) {
+			return JSON.stringify({
+				assignmentGroup: proj.u_assignment_group.toString(),
+				vendor: proj.company.toString()
+			});
+		} else {
+			return "";
+		}
+
+	},
+	handleExcel: function () {
+		var attSysId = this.getParameter("sysparam_attachment_id");
+		var fileName = this.getParameter("sysparam_file_name");
+		var scopeSysId = this.getParameter("sysparam_scope_sys_id");
+		try {
+			// Validate scope record exists
+			var scopeGr = new GlideRecord("x_adga_project_p_0_scope");
+			if (!scopeGr.get(scopeSysId)) {
+				gs.info("Excel Upload → Scope record not found: " + scopeSysId);
+				return JSON.stringify({
+					success: false,
+					message: "Scope record not found",
+					details: "Invalid scope sys_id: " + scopeSysId
+				});
+			}
+
+			var expectedHeaders = [
+				"Activity Number",
+				"Activity Name",
+				"Type",
+				"Strata",
+				"Scope",
+				'Scope Type',
+				"Activity Applicable",
+				"Primavera Activity No",
+				'Planned Start Date (dd-mm-yyyy)',
+                'Planned End Date (dd-mm-yyyy)'
+			];
+
+			// Parse Excel file
+			var att = new GlideSysAttachment().getContentStream(attSysId);
+			if (!att) {
+				return JSON.stringify({
+					success: false,
+					message: "Failed to read attachment",
+					details: "Could not access file content for attachment: " + attSysId
+				});
+			}
+
+			var parser = new sn_impex.GlideExcelParser();
+			parser.parse(att);
+
+			var headers = parser.getColumnHeaders();
+			var areHeadersEqual = compareHeaders(expectedHeaders, headers);
+
+			if (!areHeadersEqual) {
+				gs.info("Excel Upload → Header validation failed");
+				return JSON.stringify({
+					success: false,
+					message: "Invalid Excel format - Headers don't match",
+					details: "Expected: " + expectedHeaders.join(", ") + "\nFound: " + headers.join(", "),
+					expectedHeaders: expectedHeaders,
+					foundHeaders: headers
+				});
+			}
+
+			var rowCount = 0;
+			var processedCount = 0;
+			var updatedCount = 0;
+			var skippedCount = 0;
+			var errorCount = 0;
+			var validationErrors = [];
+			var updatedRecords = []; 
+
+			while (parser.next()) {
+				rowCount++;
+				var row = parser.getRow();
+
+				var activityNumber = row["Activity Number"];
+				var activityName = row["Activity Name"];
+				if (!activityNumber) {
+					skippedCount++;
+					validationErrors.push("Row " + rowCount + ": Missing Activity Number");
+					continue;
+				}
+
+				try {
+					var actGr = new GlideRecord("x_adga_project_p_0_activities");
+					actGr.addQuery("number", activityNumber);
+					actGr.addQuery("scope_ref", scopeSysId);
+					actGr.orderBy('order');
+					actGr.query();
+
+					if (actGr.next()) {
+						var notes = [];
+						var updated = false;
+						var changes = []; 
+
+						// Update Scope
+						if (row["Scope"] && actGr.getValue("scope") != row["Scope"]) {
+							actGr.setValue("scope", row["Scope"]);
+							changes.push("Scope: " + actGr.getValue("scope") + " → " + row["Scope"]);
+							updated = true;
+						}
+
+						// Update Activity Applicable
+						if (row["Activity Applicable"]) {
+							var applicableVal = row["Activity Applicable"].toLowerCase() == "yes" ? "yes" : "no";
+							if (actGr.getValue("u_applicable") != applicableVal) {
+								var oldVal = actGr.getValue("u_applicable") || "not set";
+								actGr.setValue("u_applicable", applicableVal);
+								changes.push("Activity Applicable: " + oldVal + " → " + applicableVal);
+								updated = true;
+							}
+						}
+
+						// Update Primavera Activity No
+						if (row["Primavera Activity No"] && actGr.getValue("primavera_activity_no") != row["Primavera Activity No"]) {
+							var oldPrimavera = actGr.getValue("primavera_activity_no") || "not set";
+							actGr.setValue("primavera_activity_no", row["Primavera Activity No"]);
+							changes.push("Primavera Activity No: " + oldPrimavera + " → " + row["Primavera Activity No"]);
+							updated = true;
+						}
+
+						// Update Planned Start Date
+						if (row["Planned Start Date (dd-mm-yyyy)"]) {
+							try {
+								var formattedStartDate = getFormattedDate(row["Planned Start Date (dd-mm-yyyy)"]);
+								var currentStartDate = actGr.getValue("planned_start_date");
+
+								// Compare only date parts (ignore time)
+								if (currentStartDate != formattedStartDate) {
+									var oldStart = getDisplayDate(currentStartDate) || "not set";
+									actGr.setValue("planned_start_date", formattedStartDate);
+									changes.push("Planned Start Date: " + oldStart + " → " + row["Planned Start Date (dd-mm-yyyy)"]);
+									updated = true;
+								}
+							} catch (dateError) {
+								validationErrors.push("Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )'+ "): Invalid start date format - " + row["Planned Start Date (dd-mm-yyyy)"]);
+							}
+						}
+
+						// Update Planned End Date
+						if (row["Planned End Date (dd-mm-yyyy)"]) {
+							try {
+								var formattedEndDate = getFormattedDate(row["Planned End Date (dd-mm-yyyy)"]);
+								var currentEndDate = actGr.getValue("planned_end_date");
+
+								// Compare only date parts (ignore time)
+								if (currentEndDate != formattedEndDate) {
+									var oldEnd = getDisplayDate(currentEndDate) || "not set";
+									actGr.setValue("planned_end_date", formattedEndDate);
+									changes.push("Planned End Date: " + oldEnd + " → " + row["Planned End Date (dd-mm-yyyy)"]);
+									updated = true;
+								}
+							} catch (dateError) {
+								validationErrors.push("Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )'+ "): Invalid end date format - " + row["Planned End Date (dd-mm-yyyy)"]);
+							}
+						}
+
+						// Create work notes only if there were updates
+						if (updated) {
+							notes.push("Excel Upload Update (Row " + rowCount + "):");
+							notes.push("Activity: " + activityNumber);
+							notes.push("\nFields Updated:");
+							changes.forEach(function (change) {
+								notes.push("  • " + change);
+							});
+
+							actGr.work_notes = notes.join("\n");
+							actGr.update();
+							updatedRecords.push(activityNumber);
+							updatedCount++;
+						} else {
+							// No update needed, just skip silently
+							skippedCount++;
+						}
+						processedCount++;
+					} else {
+						errorCount++;
+						validationErrors.push("Row " + rowCount + ": Activity '" + activityNumber +'( '+ activityName + ' )'+ "' not found in this scope");
+					}
+				} catch (rowError) {
+					errorCount++;
+					gs.error("Error processing row " + rowCount + " (" + activityNumber + "): " + rowError.message);
+					validationErrors.push("Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )' + "): Processing error - " + rowError.message);
+				}
+			}
+
+			// Update scope record with summary
+			var summaryNotes = [];
+			var uploadDateTime = new GlideDateTime();
+
+			summaryNotes.push("Excel Upload Summary (File Uploaded at: " + uploadDateTime.getDisplayValue() + "):");
+			summaryNotes.push("File: " + fileName);
+			summaryNotes.push("Total Rows: " + rowCount);
+			summaryNotes.push("Processed: " + processedCount);
+
+			// Show updated records
+			if (updatedCount > 0) {
+				summaryNotes.push("Updated: " + updatedCount + " (" + updatedRecords.join(", ") + ")");
+
+
+
+			} else {
+				summaryNotes.push("Updated: 0");
+			}
+
+			summaryNotes.push("Skipped: " + skippedCount);
+			summaryNotes.push("Errors: " + errorCount);
+
+			// Add validation issues if any
+			if (validationErrors.length > 0) {
+				summaryNotes.push("\nValidation Issues:");
+				validationErrors.forEach(function (error) {
+					summaryNotes.push("  • " + error);
+				});
+			}
+
+			scopeGr.work_notes = summaryNotes.join("\n");
+			scopeGr.uploaded_scope_excel = attSysId;
+
+			scopeGr.update();
+
+			// Create user-friendly response
+			var summary = {
+				success: true,
+				message: updatedCount > 0
+					? "Excel file processed successfully. " + updatedCount + " activities updated."
+					: "Excel file processed. No updates required",
+				stats: {
+					totalRows: rowCount,
+					processed: processedCount,
+					updated: updatedCount,
+					skipped: skippedCount,
+					errors: errorCount
+				},
+				updatedRecords: updatedRecords,
+				validationErrors: validationErrors,
+				fileName: fileName
+			};
+
+			// User friendly info message
+			if (updatedCount > 0) {
+				gs.addInfoMessage("✓ Excel upload complete: " + updatedCount + " activities updated, " + skippedCount + " unchanged" + (errorCount > 0 ? ", " + errorCount + " errors" : ""));
+			} else {
+				gs.addInfoMessage("✓ Excel upload complete: All activities are already up to date");
+			}
+
+			return JSON.stringify(summary);
+
+		} catch (error) {
+			gs.addErrorMessage("Critical error in Excel upload: " + error.message);
+			return JSON.stringify({
+				success: false,
+				message: "Critical processing error",
+				details: error.message,
+				fileName: fileName
+			});
+		}
+
+		/**
+		 * Compares expected headers with actual headers from Excel
+		 */
+		function compareHeaders(expectedHeaders, actualHeaders) {
+			if (expectedHeaders.length !== actualHeaders.length) return false;
+			for (var i = 0; i < actualHeaders.length; i++) {
+				var actual = actualHeaders[i];
+				var matches = expectedHeaders.some(function (expected) {
+					return actual.startsWith(expected);
+				});
+				if (!matches) return false;
+			}
+			return true;
+		}
+
+		/**
+		 * Converts ServiceNow date value (yyyy-MM-dd) to display format (dd-MM-yyyy)
+		 */
+		function getDisplayDate(dateValue) {
+			if (!dateValue) return null;
+
+			// dateValue is in format: yyyy-MM-dd
+			var parts = dateValue.split("-");
+			if (parts.length !== 3) return dateValue;
+
+			// Return in dd-MM-yyyy format
+			return parts[2] + "-" + parts[1] + "-" + parts[0];
+		}
+
+		/**
+		 * Converts date from dd-MM-yyyy or dd/MM/yyyy to yyyy-MM-dd format for ServiceNow
+		 */
+		function getFormattedDate(date) {
+			try {
+				if (!date || typeof date !== 'string') {
+					throw new Error("Invalid date format");
+				}
+
+				// Remove time if present: "24-09-2025 00:00:00" → "24-09-2025"
+				var cleanDate = date.trim().split(" ")[0];
+
+				var separator = cleanDate.indexOf("-") > -1 ? "-" : "/";
+				var dateArray = cleanDate.split(separator);
+
+				if (dateArray.length !== 3) {
+					throw new Error("Date must be in dd-MM-yyyy or dd/MM/yyyy format");
+				}
+
+				var day = dateArray[0];
+				var month = dateArray[1];
+				var year = dateArray[2];
+
+				if (day.length < 1 || month.length < 1 || year.length !== 4) {
+					throw new Error("Invalid date component lengths");
+				}
+
+				// Pad single-digit day/month with leading zero
+				if (day.length === 1) day = "0" + day;
+				if (month.length === 1) month = "0" + month;
+
+				// ServiceNow expects yyyy-MM-dd format
+				return year + "-" + month + "-" + day;
+			} catch (error) {
+				throw new Error("Date formatting error: " + error.message);
+			}
+		}
+	},
+handleMonthlyExcel: function() {
+    var attSysId = this.getParameter("sysparam_attachment_id");
+    var fileName = this.getParameter("sysparam_file_name");
+    var scopeSysId = this.getParameter("sysparam_scope_sys_id");
+
+    try {
+        // Validate scope record exists
+        var scopeGr = new GlideRecord("x_adga_project_p_0_scope");
+        if (!scopeGr.get(scopeSysId)) {
+            gs.info("Monthly Excel Upload → Scope record not found: " + scopeSysId);
+            return JSON.stringify({
+                success: false,
+                message: "Scope record not found",
+                details: "Invalid scope sys_id: " + scopeSysId
+            });
+        }
+
+        // Parse Excel file
+        var att = new GlideSysAttachment().getContentStream(attSysId);
+        if (!att) {
+            return JSON.stringify({
+                success: false,
+                message: "Failed to read attachment",
+                details: "Could not access file content for attachment: " + attSysId
+            });
+        }
+
+        var parser = new sn_impex.GlideExcelParser();
+        parser.parse(att);
+
+        var headers = parser.getColumnHeaders();
+        
+        // Expected headers: Activity Sys ID (hidden), Activity Number, Activity Name, Type, Strata, Unit, Scope, 
+        // Scope Number, Primavera Activity No, Activity Planned Start Date, Activity Planned End Date, 
+        // followed by month columns (Jan (2025), Feb (2025), etc.)
+        
+        var expectedStaticHeaders = [
+            "Activity Sys ID",
+            "Activity Number",
+            "Activity Name",
+            "Type",
+            "Strata",
+            "Unit",
+            "Scope",
+            "Scope Number and Type",
+            "Primavera Activity No",
+            "Activity Planned Start Date",
+            "Activity Planned End Date"
+        ];
+
+        // Validate static headers exist
+        var headerValidation = validateHeaders(expectedStaticHeaders, headers);
+        if (!headerValidation.success) {
+            
+            return JSON.stringify({
+                success: false,
+                message: "Invalid Excel format - Headers don't match",
+                details: headerValidation.message,
+                expectedHeaders: expectedStaticHeaders,
+                foundHeaders: headers
+            });
+        }
+
+        var rowCount = 0;
+        var processedCount = 0;
+        var updatedCount = 0;
+        var skippedCount = 0;
+        var errorCount = 0;
+        var validationErrors = [];
+        var updatedRecords = []; 
+
+        // Extract month columns (columns after the 11th static column)
+        var monthColumns = [];
+        for (var i = 11; i < headers.length; i++) {
+            monthColumns.push({
+                header: headers[i],
+                index: i
+            });
+        }
+
+        while (parser.next()) {
+            rowCount++;
+            var row = parser.getRow();
+
+            var activitySysId = row["Activity Sys ID"];
+            var activityNumber = row["Activity Number"];
+            var activityName = row["Activity Name"];
+            var activityScope = parseFloat(row["Scope"]) || 0;
+
+            if (!activitySysId) {
+                skippedCount++;
+                validationErrors.push("Row " + rowCount + ": Missing Activity Sys ID");
+                continue;
+            }
+
+            if (!activityNumber) {
+                skippedCount++;
+                validationErrors.push("Row " + rowCount + ": Missing Activity Number");
+                continue;
+            }
+
+            try {
+                // Verify activity exists
+                var actGr = new GlideRecord("x_adga_project_p_0_activities");
+                if (!actGr.get(activitySysId)) {
+                    errorCount++;
+                    validationErrors.push("Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )' +"): Activity record not found");
+                    continue;
+                }
+
+                // Verify activity belongs to the correct scope
+                if (actGr.getValue("scope_ref") != scopeSysId) {
+                    errorCount++;
+                    validationErrors.push("Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )'+ "): Activity does not belong to this scope");
+                    continue;
+                }
+
+                // Collect monthly progress values and calculate sum
+                var monthlyProgressData = [];
+                var totalProgress = 0;
+
+                for (var m = 0; m < monthColumns.length; m++) {
+                    var monthHeader = monthColumns[m].header;
+                    var progressValue = row[monthHeader];
+
+                    // Parse month and year from header (e.g., "Jan (2025)" → month: 1, year: 2025)
+                    var monthYearMatch = extractMonthYear(monthHeader);
+                    
+                    if (monthYearMatch) {
+                        var progressNum = parseFloat(progressValue) || 0;
+                        totalProgress += progressNum;
+
+                        monthlyProgressData.push({
+                            month: monthYearMatch.month,
+                            year: monthYearMatch.year,
+                            progress: progressNum,
+                            header: monthHeader
+                        });
+                    }
+                }
+
+                // VALIDATION: Check if total progress exceeds scope
+                if (totalProgress > activityScope) {
+                    errorCount++;
+                    validationErrors.push(
+                        "Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )'+ "): Sum of monthly progress (" + 
+                        totalProgress.toFixed(2) + ") exceeds activity scope (" + activityScope + ")"
+                    );
+                    continue; // Skip updating this activity
+                }
+
+                // All validations passed - now update monthly records
+                var monthsUpdated = 0;
+                var changes = [];
+
+                for (var i = 0; i < monthlyProgressData.length; i++) {
+                    var monthData = monthlyProgressData[i];
+
+                    // Find monthly activity record
+                    var monthlyGr = new GlideRecord("x_adga_project_p_0_monthly_activities");
+                    monthlyGr.addQuery("parent", activitySysId);
+                    monthlyGr.addQuery("u_month", monthData.month);
+                    monthlyGr.addQuery("u_year", monthData.year);
+                    monthlyGr.query();
+
+                    if (monthlyGr.next()) {
+                        // Update existing record
+                        var oldProgress = parseFloat(monthlyGr.getValue("current_months_scope")) || 0;
+                        
+                        if (oldProgress != monthData.progress) {
+                            monthlyGr.setValue("current_months_scope", monthData.progress);
+                            monthlyGr.update();
+                            
+                            changes.push(
+                                getMonthName(monthData.month) + " " + monthData.year + ": " + 
+                                oldProgress + " → " + monthData.progress
+                            );
+                            monthsUpdated++;
+                        }
+                    }
+                }
+
+                // Add work notes to activity if any months were updated
+                if (monthsUpdated > 0) {
+                    var notes = [];
+                    notes.push("Monthly Progress Excel Upload (Row " + rowCount + "):");
+                    notes.push("Activity: " + activityNumber);
+                    notes.push("Total Progress Sum: " + totalProgress.toFixed(2) + " / " + activityScope);
+                    notes.push("\nMonthly Updates (" + monthsUpdated + " months):");
+                    changes.forEach(function(change) {
+                        notes.push("  • " + change);
+                    });
+
+                    actGr.work_notes = notes.join("\n");
+                    actGr.update();
+                    
+                    updatedRecords.push(activityNumber);
+                    updatedCount++;
+                } else {
+                    skippedCount++;
+                }
+
+                processedCount++;
+
+            } catch (rowError) {
+                errorCount++;
+                gs.error("Error processing row " + rowCount + " (" + activityNumber + "): " + rowError.message);
+                validationErrors.push("Row " + rowCount + " (" + activityNumber +'( '+ activityName + ' )'+ "): Processing error - " + rowError.message);
+            }
+        }
+
+        gs.info("Monthly Excel Upload → Processing complete. Rows: " + rowCount + ", Updated: " + updatedCount);
+
+        // Update scope record with summary
+        var summaryNotes = [];
+        var uploadDateTime = new GlideDateTime();
+
+        summaryNotes.push("Monthly Activities Excel Upload Summary:");
+        summaryNotes.push("Upload Time: " + uploadDateTime.getDisplayValue());
+        summaryNotes.push("File: " + fileName);
+        summaryNotes.push("Total Activities: " + rowCount);
+        summaryNotes.push("Processed: " + processedCount);
+
+        if (updatedCount > 0) {
+			
+            summaryNotes.push("Updated: " + updatedCount + " (" + updatedRecords.join(", ") + ")");
+        } else {
+            summaryNotes.push("Updated: 0");
+        }
+
+        summaryNotes.push("Skipped: " + skippedCount);
+        summaryNotes.push("Errors: " + errorCount);
+
+        // Add validation issues if any
+        if (validationErrors.length > 0) {
+            summaryNotes.push("\n Validation Issues:");
+            validationErrors.forEach(function(error) {
+                summaryNotes.push("  • " + error);
+            });
+        }
+		scopeGr.u_uploaded_monthly_scope_excel = attSysId;
+        scopeGr.work_notes = summaryNotes.join("\n");
+
+        scopeGr.update();
+
+        // Create user-friendly response
+        var summary = {
+            success: true,
+            message: updatedCount > 0
+                ? "Monthly activities Excel processed successfully. " + updatedCount + " activities updated."
+                : "Excel file processed. No updates required",
+            stats: {
+                totalRows: rowCount,
+                processed: processedCount,
+                updated: updatedCount,
+                skipped: skippedCount,
+                errors: errorCount
+            },
+            updatedRecords: updatedRecords,
+            validationErrors: validationErrors,
+            fileName: fileName
+        };
+
+        // User-friendly info message
+        if (errorCount > 0) {
+            gs.addErrorMessage("Monthly Excel upload completed with " + errorCount + " validation errors. Check work notes for details.");
+        } else if (updatedCount > 0) {
+            gs.addInfoMessage("Monthly activities Excel upload complete: " + updatedCount + " activities updated, " + skippedCount + " unchanged");
+        } else {
+            gs.addInfoMessage("Monthly activities Excel upload complete: All activities are already up to date");
+        }
+
+        return JSON.stringify(summary);
+
+    } catch (error) {
+        gs.error("Critical error in Monthly Excel upload: " + error.message);
+        gs.addErrorMessage("Critical error in Excel upload: " + error.message);
+        return JSON.stringify({
+            success: false,
+            message: "Critical processing error",
+            details: error.message,
+            fileName: fileName
+        });
+    }
+
+    /**
+     * Validates that expected headers exist in the Excel file
+     */
+    function validateHeaders(expectedHeaders, actualHeaders) {
+        if (actualHeaders.length < expectedHeaders.length) {
+            return {
+                success: false,
+                message: "Excel file has fewer columns than expected"
+            };
+        }
+
+        for (var i = 0; i < expectedHeaders.length; i++) {
+            var expected = expectedHeaders[i];
+            var actual = actualHeaders[i];
+            
+            if (actual !== expected) {
+                return {
+                    success: false,
+                    message: "Header mismatch at column " + (i + 1) + ": Expected '" + expected + "', found '" + actual + "'"
+                };
+            }
+        }
+
+        return { success: true };
+    }
+
+    /**
+     * Extracts month (1-12) and year from header like "Jan (2025)"
+     */
+    function extractMonthYear(header) {
+        var monthNames = {
+            'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+            'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
+        };
+
+        // Match pattern: "MonthName (Year)"
+        var pattern = /^([A-Za-z]{3})\s*\((\d{4})\)$/;
+        var match = header.match(pattern);
+
+        if (match) {
+            var monthName = match[1];
+            var year = parseInt(match[2]);
+            var month = monthNames[monthName];
+
+            if (month && year) {
+                return {
+                    month: month,
+                    year: year
+                };
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Converts month number (1-12) to month name
+     */
+    function getMonthName(monthNum) {
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months[parseInt(monthNum) - 1] || monthNum;
+    }
+},
+
+	// Prevent user from submitting current DPR if any previous DPRs are not yet submitted
+	// Only DPRs in "Awaiting Approval" (3) or "Completed" (4) states are considered submitted
+	validatePreviousDprsSubmission: function () {
+		var currentProjectId = this.getParameter("sysparam_project_sys_id");
+		var currentDprId = this.getParameter("sysparam_dpr_sys_id");
+		var result = {
+			canSubmit: true,
+			unsubmittedDprs: [] // pending DPRs
+		};
+
+		var currentDpr = new GlideRecord("x_adga_project_p_0_dpr");
+		if (!currentDpr.get(currentDprId)) {
+			gs.error("Current DPR not found: " + currentDprId);
+			result.canSubmit = false;
+			return result;
+		}
+
+		var currentAssignedDate = currentDpr.assigned_date.getValue();
+
+		// Query only DPRs with assigned_date before the current DPR's assigned_date
+		var dprGr = new GlideRecord("x_adga_project_p_0_dpr");
+		var encodedQuery = 'project=' + currentProjectId +
+			'^sys_id!=' + currentDprId +
+			'^assigned_date<' + currentAssignedDate +
+			'^stateNOT IN3,4';
+		dprGr.addEncodedQuery(encodedQuery);
+		dprGr.orderBy('assigned_date');
+		dprGr.query();
+
+		if (dprGr.hasNext()) {
+			result.canSubmit = false;
+
+			while (dprGr.next()) {
+				var dprInfo = {
+					number: dprGr.number.getDisplayValue(),
+					date: dprGr.assigned_date.getDisplayValue(),
+					state: dprGr.state.getDisplayValue()
+				};
+
+				result.unsubmittedDprs.push(dprInfo);
+			}
+		}
+
+		return JSON.stringify(result);
+	},
+
+
+	type: 'ProjectPermissionManagementfromClient'
+});]]></script>
+<sys_class_name>sys_script_include</sys_class_name>
+<sys_created_by>izt.avinash</sys_created_by>
+<sys_created_on>2023-10-10 17:49:07</sys_created_on>
+<sys_id>b5afab2587393510ffcaea080cbb35ce</sys_id>
+<sys_mod_count>82</sys_mod_count>
+<sys_name>ProjectPermissionManagementfromClient</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy>read</sys_policy>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_script_include_b5afab2587393510ffcaea080cbb35ce</sys_update_name>
+<sys_updated_by>izt.krishna</sys_updated_by>
+<sys_updated_on>2025-10-17 11:30:07</sys_updated_on>
+</sys_script_include>
+</unload>

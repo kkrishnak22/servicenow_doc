@@ -1,0 +1,2305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2026-04-15 06:00:15">
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>general</category>
+<client_script/>
+<description/>
+<direct>false</direct>
+<endpoint>x_adga_project_p_0_download_monthly_scope_excel_template.do</endpoint>
+<html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide">
+
+<style>
+/* Simple modern CSS styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.excel-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.header-subtitle {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.info-box {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-left: 4px solid #667eea;
+    text-align: left;
+}
+
+.info-box h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.info-text {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.editable-list {
+    color: #28a745;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+button[onclick="generateExcel()"] {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    color: white;
+    padding: 18px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+    min-width: 250px;
+}
+
+button[onclick="generateExcel()"]::before {
+    content: ']]>📥<![CDATA[ ';
+    margin-right: 8px;
+}
+
+button[onclick="generateExcel()"]::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+button[onclick="generateExcel()"]:hover::after {
+    left: 100%;
+}
+
+button[onclick="generateExcel()"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+}
+
+button[onclick="generateExcel()"]:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+@media (max-width: 768px) {
+    .excel-container {
+        margin: 20px;
+        padding: 25px;
+    }
+    
+    .excel-header h1 {
+        font-size: 24px;
+    }
+    
+    button[onclick="generateExcel()"] {
+        padding: 15px 30px;
+        font-size: 16px;
+        min-width: 200px;
+    }
+}
+</style>
+
+<g:evaluate jelly="true" var="jvar_user_name">
+    gs.getUserDisplayName()
+</g:evaluate>
+
+<div class="excel-container">
+    <div class="excel-header">
+        <div class="header-title">Download Monthly Activities Excel</div>
+        <p class="header-subtitle">Hi, ${jvar_user_name}! Click the download button to get the monthly activities template</p>
+    </div>
+    
+    <div class="info-box">
+        <h3>]]>📋<![CDATA[ Instructions</h3>
+        <div class="info-text">
+            • Excel will be prefilled with all activities and dynamic month columns<br/>
+            • <span class="editable-list">Editable columns: Month cells within each activity's date range (highlighted in yellow)</span><br/>
+            • Read-only columns are locked for data integrity<br/>
+            • <strong>Important:</strong> Sum of all month values for each activity must equal the Scope value<br/>
+            • Fill in the progress data and upload back to the system
+        </div>
+    </div>
+
+    <input type="hidden" id="sysparm_rec_sys_id" name="sysparm_rec_sys_id" value="${sysparm_rec_sys_id}" />
+
+    <button type="button" onclick="generateExcel()">Download Monthly Activities Excel</button>
+</div>
+
+<script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
+
+<g:evaluate jelly="true" var="jvar_scope_data">
+    (function() {
+        var scopeGR = new GlideRecord('x_adga_project_p_0_scope');
+        if (scopeGR.get("${sysparm_rec_sys_id}")) {
+            return JSON.stringify({
+                planned_start_date: scopeGR.getValue('planned_start_date'),
+                planned_end_date: scopeGR.getValue('planned_end_date')
+            });
+        }
+        return JSON.stringify({});
+    })();
+</g:evaluate>
+
+<g:evaluate jelly="true" var="jvar_activities_with_monthly">
+    (function() {
+        var activities = [];
+        var actGR = new GlideRecord('x_adga_project_p_0_activities');
+        actGR.addQuery('scope_ref', "${sysparm_rec_sys_id}");
+        actGR.addQuery('u_applicable', "yes");
+		actGR.orderBy('order');
+        actGR.query();
+        
+        while (actGR.next()) {
+            var activityData = {
+                sys_id: actGR.getValue('sys_id'),
+                number: actGR.getValue('number'),
+                name: actGR.activity_name.getDisplayValue(),
+                type: actGR.activity_name.type.getDisplayValue(),
+                strata: actGR.activity_name.strata.getDisplayValue(),
+                unit: actGR.activity_name.unit.getDisplayValue(),
+                scope: actGR.getValue('scope'),
+                scope_number: actGR.scope_ref.getDisplayValue(),
+                scope_type: actGR.scope_ref.scope_type.getDisplayValue(),
+                primavera: actGR.getValue('primavera_activity_no'),
+                start_date: actGR.getValue('planned_start_date'),
+                end_date: actGR.getValue('planned_end_date'),
+                monthly_data: {}
+            };
+            
+            // Get monthly activities for this activity
+            var monthlyGR = new GlideRecord('x_adga_project_p_0_monthly_activities');
+            monthlyGR.addQuery('parent', actGR.getValue('sys_id'));
+            monthlyGR.query();
+            
+            while (monthlyGR.next()) {
+                var monthKey = monthlyGR.getValue('u_month') + '-' + monthlyGR.getValue('u_year');
+                activityData.monthly_data[monthKey] = {
+                    sys_id: monthlyGR.getValue('sys_id'),
+                    progress: monthlyGR.getValue('current_months_scope') || ''
+                };
+            }
+            
+            activities.push(activityData);
+        }
+        return JSON.stringify(activities);
+    })();
+</g:evaluate>
+
+<script>
+    function getMonthShortName(monthNum) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        return months[parseInt(monthNum) - 1] || '';
+    }
+
+    function generateMonthColumns(startDate, endDate) {
+        var columns = [];
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+        
+        var current = new Date(start.getFullYear(), start.getMonth(), 1);
+        var endMonth = new Date(end.getFullYear(), end.getMonth(), 1);
+        // current less or eq endMonth
+        while (Math.max(current.getTime(), endMonth.getTime()) === endMonth.getTime()) {
+            var month = current.getMonth() + 1; // 1-12
+            var year = current.getFullYear();
+            columns.push({
+                month: month,
+                year: year,
+                label: getMonthShortName(month) + ' (' + year + ')',
+                key: month + '-' + year
+            });
+            current.setMonth(current.getMonth() + 1);
+        }
+        
+        return columns;
+    }
+	
+
+	function isMonthInRange(month, year, startDate, endDate) {
+    var monthDate = new Date(year, month - 1, 1);
+    var start = new Date(startDate);
+    var end = new Date(endDate);
+    
+    var startMonth = new Date(start.getFullYear(), start.getMonth(), 1);
+    var endMonth = new Date(end.getFullYear(), end.getMonth(), 1);
+    
+    // Check if monthDate gt or = startMonth using Math.sign()
+    var isAfterStart = Math.sign(monthDate.getTime() - startMonth.getTime());
+    if (isAfterStart === -1) {
+        return false;
+    }
+    
+    // Check if monthDate lessthan or = endMonth using Math.sign()
+    var isBeforeEnd = Math.sign(endMonth.getTime() - monthDate.getTime());
+    if (isBeforeEnd === -1) {
+        return false;
+    }
+    
+    return true;
+}
+
+
+    function generateExcel() {
+        var scopeData = JSON.parse('${jvar_scope_data}');
+        var activities = JSON.parse('${jvar_activities_with_monthly}');
+        
+        if (!scopeData.planned_start_date || !scopeData.planned_end_date) {
+            alert('Scope start date or end date is missing!');
+            return;
+        }
+        
+        if (activities.length === 0) {
+            alert('No activities found for this scope!');
+            return;
+        }
+        
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Monthly Activities');
+        
+        // Generate month columns based on scope dates
+        var monthColumns = generateMonthColumns(scopeData.planned_start_date, scopeData.planned_end_date);
+        
+        // Build header row
+        var headers = [
+            'Activity Sys ID',
+            'Activity Number',
+            'Activity Name',
+            'Type',
+            'Strata',
+            'Unit',
+            'Scope',
+            'Scope Number and Type',
+            'Primavera Activity No',
+            'Activity Planned Start Date',
+            'Activity Planned End Date'
+        ];
+        
+        // Add month headers
+        monthColumns.forEach(function(col) {
+            headers.push(col.label);
+        });
+        
+        worksheet.addRow(headers);
+        
+        // Add activity rows
+        activities.forEach(function(act) {
+            var row = [
+                act.sys_id,
+                act.number,
+                act.name,
+                act.type,
+                act.strata,
+                act.unit,
+                act.scope,
+                act.scope_number + " | " + act.scope_type,
+                act.primavera,
+                act.start_date,
+                act.end_date
+            ];
+            
+            // Add monthly progress values
+            monthColumns.forEach(function(col) {
+                var monthData = act.monthly_data[col.key];
+                row.push(monthData ? monthData.progress : '');
+            });
+            
+            worksheet.addRow(row);
+        });
+        
+        // Style header row
+        worksheet.getRow(1).font = {
+            bold: true,
+            color: { argb: 'FFFFFFFF' }
+        };
+        worksheet.getRow(1).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FF0070C0' }
+        };
+        worksheet.getRow(1).alignment = { horizontal: 'center', vertical: 'middle' };
+        
+        // Auto-fit columns
+        worksheet.columns.forEach((col, index) => {
+            let maxLength = 0;
+            col.eachCell({ includeEmpty: true }, cell => {
+                const val = cell.value ? cell.value.toString() : "";
+                maxLength = Math.max(maxLength, val.length);
+            });
+            col.width = Math.max(maxLength + 2, 12);
+        });
+        
+        // Lock all cells first
+        worksheet.eachRow((row, rowNumber) => {
+            row.eachCell((cell) => {
+                cell.protection = { locked: true };
+            });
+        });
+        
+        // NOW: Unlock month columns ONLY for cells within activity's date range
+        var firstMonthCol = 12; // Month columns start at column 12
+        
+        activities.forEach(function(act, actIndex) {
+            var rowIndex = actIndex + 2; // +2 because: +1 for header, +1 for 0-based to 1-based
+            
+            monthColumns.forEach(function(col, colIndex) {
+                var excelColIndex = firstMonthCol + colIndex;
+                var cell = worksheet.getRow(rowIndex).getCell(excelColIndex);
+                
+                // Check if this month is within the activity's date range
+                if (isMonthInRange(col.month, col.year, act.start_date, act.end_date)) {
+                    // Unlock and highlight editable cells
+                    cell.protection = { locked: false };
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFFFE699' } // Light yellow for editable
+                    };
+                    // Add number validation
+                    cell.dataValidation = {
+                        type: 'decimal',
+                        operator: 'greaterThanOrEqual',
+                        allowBlank: true,
+                        formulae: [0],
+                        showErrorMessage: true,
+                        errorTitle: "Invalid Input",
+                        error: "Please enter a valid number >= 0"
+                    };
+                } else {
+                    // Keep locked with gray background
+                    cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFD3D3D3' } // Light gray for non-editable
+                    };
+                }
+            });
+        });
+        
+        // Hide Activity Sys ID column
+        worksheet.getColumn(1).hidden = true;
+
+		[2,3,4,5,6,7,8,9,10,11].forEach(colNum => {
+            worksheet.getColumn(colNum).eachCell((cell, rowNumber) => {
+                if (rowNumber > 1) {
+                   cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFD3D3D3' } // Light gray for non-editable
+                    };
+                };
+            });
+        });
+        
+        // Protect sheet
+        worksheet.protect('mypassword', {
+            selectLockedCells: true,
+            selectUnlockedCells: true
+        });
+        
+        // Download Excel
+        workbook.xlsx.writeBuffer().then(function(buffer) {
+            var blob = new Blob([buffer], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'Monthly_Activities_${sysparm_rec_sys_id}.xlsx';
+            link.click();
+        });
+    }
+</script>
+
+</j:jelly>]]></html>
+<name>download_monthly_scope_excel_template</name>
+<processing_script/>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>izt.krishna</sys_created_by>
+<sys_created_on>2025-10-07 10:19:07</sys_created_on>
+<sys_id>bab3977b97d4f2101da1bb77f053afe9</sys_id>
+<sys_mod_count>23</sys_mod_count>
+<sys_name>download_monthly_scope_excel_template</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy/>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_ui_page_bab3977b97d4f2101da1bb77f053afe9</sys_update_name>
+<sys_updated_by>izt.krishna</sys_updated_by>
+<sys_updated_on>2025-10-30 17:31:41</sys_updated_on>
+</sys_ui_page>
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>general</category>
+<client_script/>
+<description/>
+<direct>false</direct>
+<endpoint>x_adga_project_p_0_download_scope_excel_template.do</endpoint>
+<html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide">
+
+	<style>
+		/* Simple modern CSS styling */
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		/**
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+*/
+		.excel-container {
+			max-width: 700px;
+			margin: 50px auto;
+			background: rgba(255, 255, 255, 0.95);
+			backdrop-filter: blur(10px);
+			border-radius: 20px;
+			box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+			padding: 40px;
+			text-align: center;
+			animation: slideUp 0.6s ease-out;
+		}
+
+		@keyframes slideUp {
+			from {
+				transform: translateY(30px);
+				opacity: 0;
+			}
+
+			to {
+				transform: translateY(0);
+				opacity: 1;
+			}
+		}
+
+		/* Header Texts */
+		.header-title {
+			font-size: 26px;
+			font-weight: 600;
+			margin-bottom: 8px;
+			background: linear-gradient(135deg, #667eea, #764ba2);
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			display: inline-block;
+		}
+
+		.header-subtitle {
+			font-size: 15px;
+			color: #555;
+			margin-bottom: 30px;
+		}
+
+		.info-box {
+			background: #f8f9fa;
+			border-radius: 15px;
+			padding: 25px;
+			margin-bottom: 30px;
+			border-left: 4px solid #667eea;
+			text-align: left;
+		}
+
+		.info-box h3 {
+			color: #333;
+			font-size: 18px;
+			margin-bottom: 15px;
+		}
+
+		.info-text {
+			color: #555;
+			font-size: 14px;
+			line-height: 1.6;
+			margin-bottom: 15px;
+		}
+
+		.editable-list {
+			color: #28a745;
+			font-weight: 600;
+			font-size: 14px;
+		}
+
+		button[onclick="generateExcel()"] {
+			background: linear-gradient(135deg, #667eea, #764ba2);
+			border: none;
+			color: white;
+			padding: 18px 40px;
+			font-size: 18px;
+			font-weight: 600;
+			border-radius: 50px;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+			position: relative;
+			overflow: hidden;
+			min-width: 250px;
+		}
+
+		button[onclick="generateExcel()"]::before {
+			content: ']]>📥<![CDATA[ ';
+			margin-right: 8px;
+		}
+
+		button[onclick="generateExcel()"]::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: -100%;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+			transition: left 0.6s;
+		}
+
+		button[onclick="generateExcel()"]:hover::after {
+			left: 100%;
+		}
+
+		button[onclick="generateExcel()"]:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+		}
+
+		button[onclick="generateExcel()"]:active {
+			transform: translateY(-1px);
+			box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+		}
+
+		/* Responsive */
+		@media (max-width: 768px) {
+			.excel-container {
+				margin: 20px;
+				padding: 25px;
+			}
+
+			.excel-header h1 {
+				font-size: 24px;
+			}
+
+			button[onclick="generateExcel()"] {
+				padding: 15px 30px;
+				font-size: 16px;
+				min-width: 200px;
+			}
+		}
+	</style>
+	<g:evaluate jelly="true" var="jvar_user_name">
+		gs.getUserDisplayName()
+	</g:evaluate>
+
+	<div class="excel-container">
+		<div class="excel-header">
+			<div class="header-title">Download Activities Excel</div>
+			<p class="header-subtitle">Hi,${jvar_user_name}!. Click on the download button to get the prefilled excel
+				template</p>
+		</div>
+
+		<div class="info-box">
+			<h3> Instructions </h3>
+			<div class="info-text">
+				• Excel template will be prefilled with all the relevant activities<br></br>
+				• You won't be able to edit read-only columns<br></br>
+				• <span class="editable-list">Editable columns: Scope, Activity Applicable, Primavera Activity No,
+					Planned Start Date, Planned End Date</span><br></br>
+
+			</div>
+		</div>
+
+		<!-- Hidden field to capture scope record sys_id -->
+		<input type="hidden" id="sysparm_rec_sys_id" name="sysparm_rec_sys_id" value="${sysparm_rec_sys_id}" />
+
+		<!-- Button -->
+		<button type="button" onclick="generateExcel()">Download Activities Excel</button>
+	</div>
+
+	<!-- ExcelJS CDN -->
+	<script src="https://unpkg.com/exceljs/dist/exceljs.min.js"></script>
+
+	<!-- Evaluate GlideRecord on server to get activities -->
+	<g:evaluate jelly="true" var="jvar_activities">
+		(function() {
+		var activities = [];
+		var gr = new GlideRecord('x_adga_project_p_0_activities');
+		gr.addQuery('scope_ref', "${sysparm_rec_sys_id}");
+		gr.orderBy('order');
+		gr.query();
+		while (gr.next()) {
+		activities.push({
+		number: gr.getValue('number'),
+		name: gr.getDisplayValue('activity_name'),
+		type: gr.activity_name.type.getDisplayValue(),
+		strata: gr.activity_name.strata.getDisplayValue(),
+		scopeType: gr.getDisplayValue('pipe_size'),
+		scope: gr.getDisplayValue('scope'),
+		applicable: gr.getDisplayValue('u_applicable'),
+		primavera: gr.getValue('primavera_activity_no'),
+		start: gr.getDisplayValue('planned_start_date'),
+		end: gr.getDisplayValue('planned_end_date')
+		});
+		}
+		return JSON.stringify(activities);
+		})();
+	</g:evaluate>
+
+
+
+	<script>
+		function generateExcel() {
+        var activities = JSON.parse('${jvar_activities}');
+        var workbook = new ExcelJS.Workbook();
+        var worksheet = workbook.addWorksheet('Activities');
+
+        // Add headers
+        worksheet.addRow([
+            'Activity Number', // RO
+            'Activity Name', // RO
+            'Type', // RO
+            'Strata', // RO
+            'Scope Type', // RO
+            'Scope', 
+            'Activity Applicable', // yes/no
+            'Primavera Activity No',
+            'Planned Start Date (dd-mm-yyyy)',
+            'Planned End Date (dd-mm-yyyy)'
+        ]);
+
+        // Add activity rows
+        activities.forEach(function(act) {
+            worksheet.addRow([
+                act.number,
+                act.name,
+                act.type,
+                act.strata,
+                act.scopeType,
+                act.scope,
+                act.applicable || "",
+                act.primavera,
+                act.start,
+                act.end
+            ]);
+        });
+
+        // Style header row
+        worksheet.getRow(1).font = {
+            bold: true,
+            color: {
+                argb: 'FFFFFFFF'
+            }
+        };
+        worksheet.getRow(1).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: {
+                argb: 'FF0070C0'
+            }
+        };
+
+        // Auto-fit columns
+        worksheet.columns.forEach(col => {
+            let maxLength = 0;
+            col.eachCell({
+                includeEmpty: true
+            }, cell => {
+                const val = cell.value ? cell.value.toString() : "";
+                maxLength = Math.max(maxLength, val.length);
+            });
+        col.width = Math.max(maxLength, 15);
+        });
+
+        // ]]>🔒<![CDATA[ Lock all cells first
+        worksheet.eachRow((row, rowNumber) => {
+            row.eachCell((cell) => {
+                cell.protection = {
+                    locked: true
+                };
+            });
+        });
+		[1,2,3,4,5].forEach(colNum => {
+            worksheet.getColumn(colNum).eachCell((cell, rowNumber) => {
+                if (rowNumber > 1) {
+                   cell.fill = {
+                        type: 'pattern',
+                        pattern: 'solid',
+                        fgColor: { argb: 'FFD3D3D3' } // Light gray for non-editable
+                    };
+                };
+            });
+        });
+        // Unlock columns where editing is allowed
+        // Scope Col (F = 6) → Decimal
+        worksheet.getColumn(6).eachCell((cell, rowNumber) => {
+            if (rowNumber > 1) { // skip header
+                cell.protection = {
+                    locked: false
+                };
+                cell.dataValidation = {
+                        type: 'decimal',
+                        operator: 'greaterThanOrEqual',
+                        allowBlank: true,
+                        formulae: [0],
+                        showErrorMessage: true,
+                        errorTitle: "Invalid Input",
+                        error: "Please enter a valid number >= 0"
+                };
+            }
+        });
+        // Applicable column (G = 7) → Yes/No dropdown
+        worksheet.getColumn(7).eachCell((cell, rowNumber) => {
+            if (rowNumber > 1) { // skip header
+                cell.protection = {
+                    locked: false
+                };
+                cell.dataValidation = {
+                    type: 'list',
+                    allowBlank: true,
+                    formulae: ['"Yes,No"'],
+                    showErrorMessage: true,
+                    errorTitle: "Invalid Input",
+                    error: "Please select Yes or No only."
+                };
+            }
+        });
+
+        // Optionally unlock other editable columns (Primavera, Start, End)
+        [8,9,10].forEach(colNum => {
+            worksheet.getColumn(colNum).eachCell((cell, rowNumber) => {
+                if (rowNumber > 1) cell.protection = {
+                    locked: false
+                };
+            });
+        });
+       
+
+        // Protect sheet
+        worksheet.protect('mypassword', {
+            selectLockedCells: true,
+            selectUnlockedCells: true
+        });
+
+        // Download Excel
+        workbook.xlsx.writeBuffer().then(function(buffer) {
+            var blob = new Blob([buffer], {
+                type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            });
+            var url = URL.createObjectURL(blob);
+            var link = document.createElement('a');
+            link.href = url;
+            link.download = 'Activities.xlsx';
+            link.click();
+        });
+    }
+	</script>
+
+</j:jelly>]]></html>
+<name>download_scope_excel_template</name>
+<processing_script/>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>izt.krishna</sys_created_by>
+<sys_created_on>2025-09-25 11:35:33</sys_created_on>
+<sys_id>3812f1cc9718f6501da1bb77f053af0a</sys_id>
+<sys_mod_count>23</sys_mod_count>
+<sys_name>download_scope_excel_template</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy/>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_ui_page_3812f1cc9718f6501da1bb77f053af0a</sys_update_name>
+<sys_updated_by>izt.krishna</sys_updated_by>
+<sys_updated_on>2025-10-17 07:26:47</sys_updated_on>
+</sys_ui_page>
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>general</category>
+<client_script><![CDATA[//Client Script of UI Page
+
+// Create an event listener on change
+upFile.addEventListener('change', attachFiles, false);
+
+// Enhanced UI interaction functions
+function updateUploadUI(file) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	if (file) {
+		// Update UI to show file is selected
+		uploadLabel.classList.add('success');
+		uploadLabel.querySelector('.upload-icon').textContent = '✅';
+		uploadLabel.querySelector('.upload-text').textContent = 'File Selected';
+		uploadLabel.querySelector('.upload-subtext').textContent = file.name;
+	} else {
+		// Reset UI if no file selected
+		resetUploadUI();
+	}
+}
+
+function resetUploadUI() {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.classList.remove('success', 'loading');
+	uploadLabel.querySelector('.upload-icon').textContent = ']]>📁<![CDATA[';
+	uploadLabel.querySelector('.upload-text').textContent = 'Click to upload file';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'or drag and drop';
+}
+
+function showLoadingUI() {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.classList.add('loading');
+	uploadLabel.querySelector('.upload-icon').textContent = '⏳';
+	uploadLabel.querySelector('.upload-text').textContent = 'Uploading...';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Please wait';
+}
+
+function attachFiles(evt) {
+	var filename = evt.target.files[0].name;
+	var file = evt.target.files[0];
+	var userToken = document.getElementById('sysparm_ck').value;
+	// Update UI immediately when file is selected
+	updateUploadUI(file);
+
+	var recSysID = document.getElementById("sysparm_rec_sys_id").value;
+	var tableName = document.getElementById("sysparm_table_name").value;
+
+	
+
+	// Get the content type of the first File object
+	var contentType = evt.target.files[0].type;
+
+	// Passing the values to the html view with enhanced display
+	fname.innerText = filename;
+	type.innerText = contentType || 'Unknown';
+
+	// Show file size and additional info
+	var fileSize = (file.size / 1024).toFixed(2) + ' KB';
+	var lastModified = new Date(file.lastModified).toLocaleDateString();
+	fdata.innerHTML = '<strong>Size:</strong> ' + fileSize + '<br><strong>Modified:</strong> ' + lastModified;
+
+	// Show loading state
+	showLoadingUI();
+
+	// Attachment REST API
+	var url = "/api/now/attachment/file?file_name=" + encodeURIComponent(filename) +
+		"&table_name=" + tableName +
+		"&table_sys_id=" + recSysID;
+
+	var oReq = new XMLHttpRequest();
+	// oReq.withCredentials = true;
+	oReq.open("POST", url, true);
+
+	// Set correct content type 
+	oReq.setRequestHeader("Content-Type", file.type);
+
+	oReq.setRequestHeader("X-UserToken", userToken);
+
+	oReq.onload = function (oEvent) {
+		if (oReq.status >= 200 && oReq.status < 300) {
+			var response = JSON.parse(oReq.responseText);
+			var result = response.result;
+
+			// Update UI to show success
+			var uploadLabel = document.getElementById('uploadLabel');
+			uploadLabel.classList.remove('loading');
+			uploadLabel.classList.add('success');
+			uploadLabel.querySelector('.upload-icon').textContent = '✅';
+			uploadLabel.querySelector('.upload-text').textContent = 'Upload Successful';
+			uploadLabel.querySelector('.upload-subtext').textContent = 'File processed successfully';
+
+			// Now we have the sys_id of the attachment, we need to validate the uploaded file
+			var successMessage = document.createElement('div');
+			successMessage.style.marginTop = '10px';
+			successMessage.style.padding = '10px';
+			successMessage.style.backgroundColor = '#d4edda';
+			successMessage.style.border = '1px solid #c3e6cb';
+			successMessage.style.borderRadius = '8px';
+			successMessage.style.color = '#155724';
+
+			var span = document.createElement('span');
+			span.innerText = "File uploaded successfully to ";
+
+			var anchor = document.createElement('a');
+			anchor.href = '/' + tableName + '.do?sys_id=' + result.table_sys_id;
+			anchor.innerText = 'Current Record';
+			anchor.style.color = '#155724';
+			anchor.style.fontWeight = 'bold';
+			anchor.style.textDecoration = 'underline';
+
+			span.appendChild(anchor);
+			successMessage.appendChild(span);
+
+			// Clear previous content and add success message
+			fdata.innerHTML = '';
+			fdata.appendChild(successMessage);
+
+			// Call validation function
+			validateExcel(result.sys_id, result.file_name, recSysID);
+		} else {
+			// Handle error state
+			var uploadLabel = document.getElementById('uploadLabel');
+			uploadLabel.classList.remove('loading');
+			uploadLabel.querySelector('.upload-icon').textContent = '❌';
+			uploadLabel.querySelector('.upload-text').textContent = 'Upload Failed';
+			uploadLabel.querySelector('.upload-subtext').textContent = 'Please try again';
+			alert(JSON.stringify(oReq))
+			alert("Upload failed: " + oReq.statusText);
+		}
+	};
+
+	oReq.onerror = function () {
+		// Handle network error
+		var uploadLabel = document.getElementById('uploadLabel');
+		uploadLabel.classList.remove('loading');
+		uploadLabel.querySelector('.upload-icon').textContent = '❌';
+		uploadLabel.querySelector('.upload-text').textContent = 'Network Error';
+		uploadLabel.querySelector('.upload-subtext').textContent = 'Check your connection';
+		alert(JSON.stringify(oReq))
+		alert("Network error occurred during upload");
+	};
+
+	// Send the actual file
+	oReq.send(file);
+}
+
+function validateExcel(file, fileName, recSysID) {
+	// Show validation is starting
+	showValidationUI();
+
+	var att = new GlideAjax('x_adga_project_p_0.ProjectPermissionManagementfromClient');
+	att.addParam('sysparm_name', "handleMonthlyExcel");
+	att.addParam('sysparam_attachment_id', file);
+	att.addParam('sysparam_file_name', fileName);
+	att.addParam('sysparam_scope_sys_id', recSysID);
+	att.getXML(callBackFun);
+}
+
+function showValidationUI() {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.querySelector('.upload-icon').textContent = '⚡';
+	uploadLabel.querySelector('.upload-text').textContent = 'Validating Excel...';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Processing data';
+
+	// Add validation message to fdata
+	var validatingDiv = document.createElement('div');
+	validatingDiv.id = 'validating-message';
+	validatingDiv.style.marginTop = '10px';
+	validatingDiv.style.padding = '15px';
+	validatingDiv.style.backgroundColor = '#fff3cd';
+	validatingDiv.style.border = '1px solid #ffeaa7';
+	validatingDiv.style.borderRadius = '8px';
+	validatingDiv.style.color = '#856404';
+	validatingDiv.innerHTML = '<strong>⏳ Validating Excel file...</strong><br>Processing rows and updating activities';
+
+	fdata.appendChild(validatingDiv);
+}
+
+function callBackFun(response) {
+	// Remove validating message
+	var validatingMsg = document.getElementById('validating-message');
+	if (validatingMsg) {
+		validatingMsg.remove();
+	}
+
+	var answer = response.responseXML.documentElement.getAttribute("answer");
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	if (answer) {
+		try {
+			var result = JSON.parse(answer);
+
+			if (result.success) {
+				handleSuccessResponse(result);
+			} else {
+				handleErrorResponse(result);
+			}
+
+		} catch (parseError) {
+			// Handle old format or invalid JSON
+			alert("Validation response (legacy): " + answer);
+			handleLegacyResponse(answer);
+		}
+	} else {
+		// No response received
+		uploadLabel.querySelector('.upload-icon').textContent = '❌';
+		uploadLabel.querySelector('.upload-text').textContent = 'Validation Failed';
+		uploadLabel.querySelector('.upload-subtext').textContent = 'No response received';
+
+		showErrorMessage("No validation response received", "Please check the server logs for details.");
+	}
+}
+
+function handleSuccessResponse(result) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	// Update upload label to show completion
+	uploadLabel.querySelector('.upload-icon').textContent = '✅';
+	uploadLabel.querySelector('.upload-text').textContent = 'Processing Complete';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Excel validated and processed';
+
+	// Create detailed success message
+	var successDiv = document.createElement('div');
+	successDiv.style.marginTop = '10px';
+	successDiv.style.padding = '15px';
+	successDiv.style.backgroundColor = '#d4edda';
+	successDiv.style.border = '1px solid #c3e6cb';
+	successDiv.style.borderRadius = '8px';
+	successDiv.style.color = '#155724';
+
+	var stats = result.stats;
+	var summary = '<strong>✅ Excel Processing Complete</strong><br>';
+	summary += '<strong>File:</strong> ' + result.fileName + '<br><br>';
+
+summary += '<strong>Processing Summary:</strong><br>';
+summary += '• Total Rows: ' + stats.totalRows + '<br>';
+summary += '• Successfully Processed: ' + stats.processed + '<br>';
+summary += '• Records Updated: ' + stats.updated + '<br>';
+summary += '• Records Skipped: ' + stats.skipped + '<br>';
+
+// Highlight "Errors" row in red if any
+if (stats.errors > 0) {
+	summary += '<div style="background-color:#f8d7da; color:#721c24; padding:4px; border-radius:4px; display:inline-block;">';
+	summary += '• Errors: ' + stats.errors + '<br>';
+	summary += '</div>';
+} else {
+	summary += '• Errors: ' + stats.errors + '<br>';
+}
+
+// Validation Issues section with red background
+if (result.validationErrors && result.validationErrors.length > 0) {
+	summary += '<br><strong>⚠️ Validation Issues:</strong><br>';
+	result.validationErrors.forEach(function (error) {
+		summary += '<div style="background-color:#f8d7da; color:#721c24; padding:4px; border-radius:4px; margin:2px 0;">';
+		summary += '• ' + error + '<br>';
+		summary += '</div>';
+	});
+}
+
+successDiv.innerHTML = summary;
+fdata.appendChild(successDiv);
+
+// Show completion message
+if (stats.errors > 0) {
+	alert('Processing completed with ' + stats.errors + ' errors. Check the details below.');
+} else {
+	alert('Excel file processed successfully! ' + stats.updated + ' records updated.');
+}
+
+}
+
+function handleErrorResponse(result) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	// Update upload label to show error
+	uploadLabel.querySelector('.upload-icon').textContent = '❌';
+	uploadLabel.querySelector('.upload-text').textContent = 'Validation Failed';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Check error details below';
+
+	showErrorMessage(result.message, result.details, result);
+
+	// Show error alert
+	alert('Validation failed: ' + result.message);
+}
+
+function handleLegacyResponse(answer) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	uploadLabel.querySelector('.upload-icon').textContent = '✅';
+	uploadLabel.querySelector('.upload-text').textContent = 'Processing Complete';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Legacy response format';
+
+	// Legacy format handling
+	var validationResult = document.createElement('div');
+	validationResult.style.marginTop = '10px';
+	validationResult.style.padding = '15px';
+	validationResult.style.backgroundColor = '#cce5ff';
+	validationResult.style.border = '1px solid #80bfff';
+	validationResult.style.borderRadius = '8px';
+	validationResult.style.color = '#004085';
+	validationResult.innerHTML = '<strong>Validation Result:</strong><br>' + answer;
+
+	fdata.appendChild(validationResult);
+}
+
+function showErrorMessage(message, details, result) {
+	var errorDiv = document.createElement('div');
+	errorDiv.style.marginTop = '10px';
+	errorDiv.style.padding = '15px';
+	errorDiv.style.backgroundColor = '#f8d7da';
+	errorDiv.style.border = '1px solid #f5c6cb';
+	errorDiv.style.borderRadius = '8px';
+	errorDiv.style.color = '#721c24';
+
+	var errorHtml = '<strong>❌ Validation Error</strong><br>';
+	errorHtml += '<strong>Message:</strong> ' + message + '<br>';
+
+	if (details) {
+		errorHtml += '<strong>Details:</strong> ' + details + '<br>';
+	}
+
+	if (result && result.expectedHeaders && result.foundHeaders) {
+		errorHtml += '<br><strong>Expected Headers:</strong><br>';
+		result.expectedHeaders.forEach(function (header) {
+			errorHtml += '• ' + header + '<br>';
+		});
+
+		errorHtml += '<br><strong>Found Headers:</strong><br>';
+		result.foundHeaders.forEach(function (header) {
+			errorHtml += '• ' + header + '<br>';
+		});
+	}
+
+	errorDiv.innerHTML = errorHtml;
+	fdata.appendChild(errorDiv);
+}
+
+// Enhanced drag and drop functionality
+function initializeDragAndDrop() {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	if (uploadLabel) {
+		['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+			uploadLabel.addEventListener(eventName, preventDefaults, false);
+			document.body.addEventListener(eventName, preventDefaults, false);
+		});
+
+		['dragenter', 'dragover'].forEach(eventName => {
+			uploadLabel.addEventListener(eventName, highlight, false);
+		});
+
+		['dragleave', 'drop'].forEach(eventName => {
+			uploadLabel.addEventListener(eventName, unhighlight, false);
+		});
+
+		uploadLabel.addEventListener('drop', handleDrop, false);
+	}
+}
+
+function preventDefaults(e) {
+	e.preventDefault();
+	e.stopPropagation();
+}
+
+function highlight(e) {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.style.borderColor = '#764ba2';
+	uploadLabel.style.background = 'linear-gradient(45deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15))';
+}
+
+function unhighlight(e) {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.style.borderColor = '#667eea';
+	uploadLabel.style.background = 'linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05))';
+}
+
+function handleDrop(e) {
+	var dt = e.dataTransfer;
+	var files = dt.files;
+
+	if (files.length > 0) {
+		document.getElementById('upFile').files = files;
+		// Manually trigger the change event
+		var event = new Event('change', { bubbles: true });
+		document.getElementById('upFile').dispatchEvent(event);
+	}
+}
+
+// Initialize drag and drop when the page loads
+window.addEventListener('load', function () {
+	initializeDragAndDrop();
+});]]></client_script>
+<description/>
+<direct>false</direct>
+<endpoint>x_adga_project_p_0_upload_monthly_scope_excel.do</endpoint>
+<html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<style>
+/* Modern CSS styling for the file upload form */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    transform: translateY(20px);
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: #333;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 16px;
+}
+
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    border: 3px dashed #667eea;
+    border-radius: 15px;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.file-upload-label:hover {
+    border-color: #764ba2;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.file-upload-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.file-upload-label:hover::before {
+    left: 100%;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #667eea;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.file-upload-label:hover .upload-icon {
+    color: #764ba2;
+    transform: scale(1.1);
+}
+
+.upload-text {
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.upload-subtext {
+    color: #666;
+    font-size: 14px;
+}
+
+#upFile {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.info-section {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    border-left: 4px solid #667eea;
+}
+
+.info-section h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h3::before {
+    content: ']]>📄<![CDATA[';
+    margin-right: 10px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item:hover {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 8px;
+    padding-left: 10px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.info-label::after {
+    content: ':';
+    margin: 0 10px;
+}
+
+.info-value {
+    color: #333;
+    font-family: 'Courier New', monospace;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 5px 10px;
+    border-radius: 6px;
+    flex: 1;
+    word-break: break-all;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .form-header h2 {
+        font-size: 24px;
+    }
+    
+    .file-upload-label {
+        height: 150px;
+    }
+    
+    .upload-icon {
+        font-size: 36px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-label {
+        min-width: auto;
+        margin-bottom: 5px;
+    }
+    
+    .info-value {
+        width: 100%;
+    }
+}
+
+/* Loading animation for when file is being processed */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success state styling */
+.success {
+    border-color: #28a745;
+    background: linear-gradient(45deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+}
+
+.success .upload-icon {
+    color: #28a745;
+}
+</style>
+
+<!-- UI Page HTML -->
+<input type="hidden" id="sysparm_rec_sys_id" name="sysparm_rec_sys_id" value="${sysparm_rec_sys_id}" />
+<input type="hidden" id="sysparm_table_name" name="sysparm_table_name" value="${sysparm_table_name}" />
+
+<div class="container">
+    <div class="form-header">
+        <h2>File Upload</h2>
+        <p>Select a file to upload and view its details</p>
+    </div>
+    
+    <form>
+        <div class="upload-section">
+            <div class="file-upload-wrapper">
+                <label for="upFile" class="file-upload-label" id="uploadLabel">
+                    <div class="upload-icon">]]>📁<![CDATA[</div>
+                    <div class="upload-text">Click to upload file</div>
+                    <div class="upload-subtext">or drag and drop</div>
+                </label>
+                <input id="upFile" type="file" />
+            </div>
+        </div>
+    </form>
+    
+    <section class="info-section">
+        <h3>File Information</h3>
+        <div class="info-item">
+            <div class="info-label">File Name</div>
+            <div class="info-value" id="fname">No file selected</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">File Type</div>
+            <div class="info-value" id="type">-</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">File Data</div>
+            <div class="info-value" id="fdata">-</div>
+        </div>
+    </section>
+</div>
+</j:jelly>]]></html>
+<name>upload_monthly_scope_excel</name>
+<processing_script><![CDATA[//  response.sendRedirect("x_adga_project_p_0_scope.do?sys_id=" + 'f3ee391f978836501da1bb77f053afac');]]></processing_script>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>izt.krishna</sys_created_by>
+<sys_created_on>2025-10-08 03:42:46</sys_created_on>
+<sys_id>ae92cf8097a436101da1bb77f053af0f</sys_id>
+<sys_mod_count>2</sys_mod_count>
+<sys_name>upload_monthly_scope_excel</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy/>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_ui_page_ae92cf8097a436101da1bb77f053af0f</sys_update_name>
+<sys_updated_by>izt.krishna</sys_updated_by>
+<sys_updated_on>2025-10-09 09:46:03</sys_updated_on>
+</sys_ui_page>
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>general</category>
+<client_script><![CDATA[//Client Script of UI Page
+
+// Create an event listener on change
+upFile.addEventListener('change', attachFiles, false);
+
+// Enhanced UI interaction functions
+function updateUploadUI(file) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	if (file) {
+		// Update UI to show file is selected
+		uploadLabel.classList.add('success');
+		uploadLabel.querySelector('.upload-icon').textContent = '✅';
+		uploadLabel.querySelector('.upload-text').textContent = 'File Selected';
+		uploadLabel.querySelector('.upload-subtext').textContent = file.name;
+	} else {
+		// Reset UI if no file selected
+		resetUploadUI();
+	}
+}
+
+function resetUploadUI() {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.classList.remove('success', 'loading');
+	uploadLabel.querySelector('.upload-icon').textContent = ']]>📁<![CDATA[';
+	uploadLabel.querySelector('.upload-text').textContent = 'Click to upload file';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'or drag and drop';
+}
+
+function showLoadingUI() {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.classList.add('loading');
+	uploadLabel.querySelector('.upload-icon').textContent = '⏳';
+	uploadLabel.querySelector('.upload-text').textContent = 'Uploading...';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Please wait';
+}
+
+function attachFiles(evt) {
+	var filename = evt.target.files[0].name;
+	var file = evt.target.files[0];
+	var userToken = document.getElementById('sysparm_ck').value;
+	// Update UI immediately when file is selected
+	updateUploadUI(file);
+
+	var recSysID = document.getElementById("sysparm_rec_sys_id").value;
+	var tableName = document.getElementById("sysparm_table_name").value;
+
+	
+
+	// Get the content type of the first File object
+	var contentType = evt.target.files[0].type;
+
+	// Passing the values to the html view with enhanced display
+	fname.innerText = filename;
+	type.innerText = contentType || 'Unknown';
+
+	// Show file size and additional info
+	var fileSize = (file.size / 1024).toFixed(2) + ' KB';
+	var lastModified = new Date(file.lastModified).toLocaleDateString();
+	fdata.innerHTML = '<strong>Size:</strong> ' + fileSize + '<br><strong>Modified:</strong> ' + lastModified;
+
+	// Show loading state
+	showLoadingUI();
+
+	// Attachment REST API
+	var url = "/api/now/attachment/file?file_name=" + encodeURIComponent(filename) +
+		"&table_name=" + tableName +
+		"&table_sys_id=" + recSysID;
+
+	var oReq = new XMLHttpRequest();
+	// oReq.withCredentials = true;
+	oReq.open("POST", url, true);
+
+	// Set correct content type 
+	oReq.setRequestHeader("Content-Type", file.type);
+	// oReq.setRequestHeader("Access-Control-Allow-Credentials", "true");
+	// var username = "file.upload.user"; 
+	// var password = "Ax<Z$dEW)r&dBDiF^z2(cCeaAl%,;gTQDL8k]liiLDq?P6iCq0K@yvPB+!se;}^_Kp]Ed9fUe(Qx.,=ioM-f[u9t.o?;-M8J{Crg";
+	// // var username = "izt.krishna"; 
+	// // var password = "Ben10@sam";
+	// var encoded = btoa(username + ":" + password);
+	// oReq.setRequestHeader("Authorization", "Basic " + encoded);
+	oReq.setRequestHeader("X-UserToken", userToken);
+
+
+	oReq.onload = function (oEvent) {
+		if (oReq.status >= 200 && oReq.status < 300) {
+			var response = JSON.parse(oReq.responseText);
+			var result = response.result;
+
+			// Update UI to show success
+			var uploadLabel = document.getElementById('uploadLabel');
+			uploadLabel.classList.remove('loading');
+			uploadLabel.classList.add('success');
+			uploadLabel.querySelector('.upload-icon').textContent = '✅';
+			uploadLabel.querySelector('.upload-text').textContent = 'Upload Successful';
+			uploadLabel.querySelector('.upload-subtext').textContent = 'File processed successfully';
+
+			// Now you have the sys_id of the attachment!
+			var successMessage = document.createElement('div');
+			successMessage.style.marginTop = '10px';
+			successMessage.style.padding = '10px';
+			successMessage.style.backgroundColor = '#d4edda';
+			successMessage.style.border = '1px solid #c3e6cb';
+			successMessage.style.borderRadius = '8px';
+			successMessage.style.color = '#155724';
+
+			var span = document.createElement('span');
+			span.innerText = "File uploaded successfully to ";
+
+			var anchor = document.createElement('a');
+			anchor.href = '/' + tableName + '.do?sys_id=' + result.table_sys_id;
+			anchor.innerText = 'Current Record';
+			anchor.style.color = '#155724';
+			anchor.style.fontWeight = 'bold';
+			anchor.style.textDecoration = 'underline';
+
+			span.appendChild(anchor);
+			successMessage.appendChild(span);
+
+			// Clear previous content and add success message
+			fdata.innerHTML = '';
+			fdata.appendChild(successMessage);
+
+			// Call validation function
+			validateExcel(result.sys_id, result.file_name, recSysID);
+		} else {
+			// Handle error state
+			var uploadLabel = document.getElementById('uploadLabel');
+			uploadLabel.classList.remove('loading');
+			uploadLabel.querySelector('.upload-icon').textContent = '❌';
+			uploadLabel.querySelector('.upload-text').textContent = 'Upload Failed';
+			uploadLabel.querySelector('.upload-subtext').textContent = 'Please try again';
+			alert(JSON.stringify(oReq))
+			alert("Upload failed: " + oReq.statusText);
+		}
+	};
+
+	oReq.onerror = function () {
+		// Handle network error
+		var uploadLabel = document.getElementById('uploadLabel');
+		uploadLabel.classList.remove('loading');
+		uploadLabel.querySelector('.upload-icon').textContent = '❌';
+		uploadLabel.querySelector('.upload-text').textContent = 'Network Error';
+		uploadLabel.querySelector('.upload-subtext').textContent = 'Check your connection';
+		alert(JSON.stringify(oReq))
+		alert("Network error occurred during upload");
+	};
+
+	// Send the actual file
+	oReq.send(file);
+}
+
+function validateExcel(file, fileName, recSysID) {
+	// Show validation is starting
+	showValidationUI();
+
+	var att = new GlideAjax('x_adga_project_p_0.ProjectPermissionManagementfromClient');
+	att.addParam('sysparm_name', "handleExcel");
+	att.addParam('sysparam_attachment_id', file);
+	att.addParam('sysparam_file_name', fileName);
+	att.addParam('sysparam_scope_sys_id', recSysID);
+	att.getXML(callBackFun);
+}
+
+function showValidationUI() {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.querySelector('.upload-icon').textContent = '⚡';
+	uploadLabel.querySelector('.upload-text').textContent = 'Validating Excel...';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Processing data';
+
+	// Add validation message to fdata
+	var validatingDiv = document.createElement('div');
+	validatingDiv.id = 'validating-message';
+	validatingDiv.style.marginTop = '10px';
+	validatingDiv.style.padding = '15px';
+	validatingDiv.style.backgroundColor = '#fff3cd';
+	validatingDiv.style.border = '1px solid #ffeaa7';
+	validatingDiv.style.borderRadius = '8px';
+	validatingDiv.style.color = '#856404';
+	validatingDiv.innerHTML = '<strong>⏳ Validating Excel file...</strong><br>Processing rows and updating activities';
+
+	fdata.appendChild(validatingDiv);
+}
+
+function callBackFun(response) {
+	// Remove validating message
+	var validatingMsg = document.getElementById('validating-message');
+	if (validatingMsg) {
+		validatingMsg.remove();
+	}
+
+	var answer = response.responseXML.documentElement.getAttribute("answer");
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	if (answer) {
+		try {
+			var result = JSON.parse(answer);
+
+			if (result.success) {
+				handleSuccessResponse(result);
+			} else {
+				handleErrorResponse(result);
+			}
+
+		} catch (parseError) {
+			// Handle old format or invalid JSON
+			alert("Validation response (legacy): " + answer);
+			handleLegacyResponse(answer);
+		}
+	} else {
+		// No response received
+		uploadLabel.querySelector('.upload-icon').textContent = '❌';
+		uploadLabel.querySelector('.upload-text').textContent = 'Validation Failed';
+		uploadLabel.querySelector('.upload-subtext').textContent = 'No response received';
+
+		showErrorMessage("No validation response received", "");
+	}
+}
+
+function handleSuccessResponse(result) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	// Update upload label to show completion
+	uploadLabel.querySelector('.upload-icon').textContent = '✅';
+	uploadLabel.querySelector('.upload-text').textContent = 'Processing Complete';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Excel validated and processed';
+
+	// Create detailed success message
+	var successDiv = document.createElement('div');
+	successDiv.style.marginTop = '10px';
+	successDiv.style.padding = '15px';
+	successDiv.style.backgroundColor = '#d4edda';
+	successDiv.style.border = '1px solid #c3e6cb';
+	successDiv.style.borderRadius = '8px';
+	successDiv.style.color = '#155724';
+
+	var stats = result.stats;
+	var summary = '<strong>✅ Excel Processing Complete</strong><br>';
+	summary += '<strong>File:</strong> ' + result.fileName + '<br><br>';
+
+summary += '<strong>Processing Summary:</strong><br>';
+summary += '• Total Rows: ' + stats.totalRows + '<br>';
+summary += '• Successfully Processed: ' + stats.processed + '<br>';
+summary += '• Records Updated: ' + stats.updated + '<br>';
+summary += '• Records Skipped: ' + stats.skipped + '<br>';
+
+// Highlight Errors in red background if any
+if (stats.errors && stats.errors > 0) {
+	summary += '<div style="background-color:#f8d7da; color:#721c24; padding:5px; border-radius:4px; margin-top:5px;">';
+	summary += '• Errors: ' + stats.errors + '<br>';
+	summary += '</div>';
+} else {
+	summary += '• Errors: ' + stats.errors + '<br>';
+}
+
+// Validation issues styling
+if (result.validationErrors && result.validationErrors.length > 0) {
+	summary += '<br><strong>⚠️ Validation Issues:</strong><br>';
+	result.validationErrors.forEach(function (error) {
+		summary += '<div style="background-color:#f8d7da; color:#721c24; padding:4px; border-radius:4px; margin:2px 0;">';
+		summary += '• ' + error + '<br>';
+		summary += '</div>';
+	});
+}
+
+
+	successDiv.innerHTML = summary;
+	fdata.appendChild(successDiv);
+
+	// Show completion message
+	if (stats.errors > 0) {
+		alert('Processing completed with ' + stats.errors + ' errors. Check the details below.');
+	} else {
+		alert('Excel file processed successfully! ' + stats.updated + ' records updated.');
+	}
+}
+
+function handleErrorResponse(result) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	// Update upload label to show error
+	uploadLabel.querySelector('.upload-icon').textContent = '❌';
+	uploadLabel.querySelector('.upload-text').textContent = 'Validation Failed';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Check error details below';
+
+	showErrorMessage(result.message, result.details, result);
+
+	// Show error alert
+	alert('Validation failed: ' + result.message);
+}
+
+function handleLegacyResponse(answer) {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	uploadLabel.querySelector('.upload-icon').textContent = '✅';
+	uploadLabel.querySelector('.upload-text').textContent = 'Processing Complete';
+	uploadLabel.querySelector('.upload-subtext').textContent = 'Legacy response format';
+
+	// Legacy format handling
+	var validationResult = document.createElement('div');
+	validationResult.style.marginTop = '10px';
+	validationResult.style.padding = '15px';
+	validationResult.style.backgroundColor = '#cce5ff';
+	validationResult.style.border = '1px solid #80bfff';
+	validationResult.style.borderRadius = '8px';
+	validationResult.style.color = '#004085';
+	validationResult.innerHTML = '<strong>Validation Result:</strong><br>' + answer;
+
+	fdata.appendChild(validationResult);
+}
+
+function showErrorMessage(message, details, result) {
+	var errorDiv = document.createElement('div');
+	errorDiv.style.marginTop = '10px';
+	errorDiv.style.padding = '15px';
+	errorDiv.style.backgroundColor = '#f8d7da';
+	errorDiv.style.border = '1px solid #f5c6cb';
+	errorDiv.style.borderRadius = '8px';
+	errorDiv.style.color = '#721c24';
+
+	var errorHtml = '<strong>❌ Validation Error</strong><br>';
+	errorHtml += '<strong>Message:</strong> ' + message + '<br>';
+
+	if (details) {
+		errorHtml += '<strong>Details:</strong> ' + details + '<br>';
+	}
+
+	if (result && result.expectedHeaders && result.foundHeaders) {
+		errorHtml += '<br><strong>Expected Headers:</strong><br>';
+		result.expectedHeaders.forEach(function (header) {
+			errorHtml += '• ' + header + '<br>';
+		});
+
+		errorHtml += '<br><strong>Found Headers:</strong><br>';
+		result.foundHeaders.forEach(function (header) {
+			errorHtml += '• ' + header + '<br>';
+		});
+	}
+
+	errorDiv.innerHTML = errorHtml;
+	fdata.appendChild(errorDiv);
+}
+
+// Enhanced drag and drop functionality
+function initializeDragAndDrop() {
+	var uploadLabel = document.getElementById('uploadLabel');
+
+	if (uploadLabel) {
+		['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+			uploadLabel.addEventListener(eventName, preventDefaults, false);
+			document.body.addEventListener(eventName, preventDefaults, false);
+		});
+
+		['dragenter', 'dragover'].forEach(eventName => {
+			uploadLabel.addEventListener(eventName, highlight, false);
+		});
+
+		['dragleave', 'drop'].forEach(eventName => {
+			uploadLabel.addEventListener(eventName, unhighlight, false);
+		});
+
+		uploadLabel.addEventListener('drop', handleDrop, false);
+	}
+}
+
+function preventDefaults(e) {
+	e.preventDefault();
+	e.stopPropagation();
+}
+
+function highlight(e) {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.style.borderColor = '#764ba2';
+	uploadLabel.style.background = 'linear-gradient(45deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15))';
+}
+
+function unhighlight(e) {
+	var uploadLabel = document.getElementById('uploadLabel');
+	uploadLabel.style.borderColor = '#667eea';
+	uploadLabel.style.background = 'linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05))';
+}
+
+function handleDrop(e) {
+	var dt = e.dataTransfer;
+	var files = dt.files;
+
+	if (files.length > 0) {
+		document.getElementById('upFile').files = files;
+		// Manually trigger the change event
+		var event = new Event('change', { bubbles: true });
+		document.getElementById('upFile').dispatchEvent(event);
+	}
+}
+
+// Initialize drag and drop when the page loads
+window.addEventListener('load', function () {
+	initializeDragAndDrop();
+});]]></client_script>
+<description/>
+<direct>false</direct>
+<endpoint>x_adga_project_p_0_upload_scope_excel.do</endpoint>
+<html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+
+<style>
+/* Modern CSS styling for the file upload form */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    transform: translateY(20px);
+    animation: slideUp 0.6s ease-out forwards;
+}
+
+@keyframes slideUp {
+    to {
+        transform: translateY(0);
+    }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-header h2 {
+    color: #333;
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 16px;
+}
+
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.file-upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 200px;
+    border: 3px dashed #667eea;
+    border-radius: 15px;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.file-upload-label:hover {
+    border-color: #764ba2;
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+}
+
+.file-upload-label::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s;
+}
+
+.file-upload-label:hover::before {
+    left: 100%;
+}
+
+.upload-icon {
+    font-size: 48px;
+    color: #667eea;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.file-upload-label:hover .upload-icon {
+    color: #764ba2;
+    transform: scale(1.1);
+}
+
+.upload-text {
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.upload-subtext {
+    color: #666;
+    font-size: 14px;
+}
+
+#upFile {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.info-section {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 25px;
+    border-left: 4px solid #667eea;
+}
+
+.info-section h3 {
+    color: #333;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section h3::before {
+    content: ']]>📄<![CDATA[';
+    margin-right: 10px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item:hover {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 8px;
+    padding-left: 10px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #555;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.info-label::after {
+    content: ':';
+    margin: 0 10px;
+}
+
+.info-value {
+    color: #333;
+    font-family: 'Courier New', monospace;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 5px 10px;
+    border-radius: 6px;
+    flex: 1;
+    word-break: break-all;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+    
+    .form-header h2 {
+        font-size: 24px;
+    }
+    
+    .file-upload-label {
+        height: 150px;
+    }
+    
+    .upload-icon {
+        font-size: 36px;
+    }
+    
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .info-label {
+        min-width: auto;
+        margin-bottom: 5px;
+    }
+    
+    .info-value {
+        width: 100%;
+    }
+}
+
+/* Loading animation for when file is being processed */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Success state styling */
+.success {
+    border-color: #28a745;
+    background: linear-gradient(45deg, rgba(40, 167, 69, 0.1), rgba(40, 167, 69, 0.05));
+}
+
+.success .upload-icon {
+    color: #28a745;
+}
+</style>
+
+<!-- UI Page HTML -->
+<input type="hidden" id="sysparm_rec_sys_id" name="sysparm_rec_sys_id" value="${sysparm_rec_sys_id}" />
+<input type="hidden" id="sysparm_table_name" name="sysparm_table_name" value="${sysparm_table_name}" />
+
+<div class="container">
+    <div class="form-header">
+        <h2>File Upload</h2>
+        <p>Select a file to upload and view its details</p>
+    </div>
+    
+    <form>
+        <div class="upload-section">
+            <div class="file-upload-wrapper">
+                <label for="upFile" class="file-upload-label" id="uploadLabel">
+                    <div class="upload-icon">]]>📁<![CDATA[</div>
+                    <div class="upload-text">Click to upload file</div>
+                    <div class="upload-subtext">or drag and drop</div>
+                </label>
+                <input id="upFile" type="file" />
+            </div>
+        </div>
+    </form>
+    
+    <section class="info-section">
+        <h3>File Information</h3>
+        <div class="info-item">
+            <div class="info-label">File Name</div>
+            <div class="info-value" id="fname">No file selected</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">File Type</div>
+            <div class="info-value" id="type">-</div>
+        </div>
+        <div class="info-item">
+            <div class="info-label">File Data</div>
+            <div class="info-value" id="fdata">-</div>
+        </div>
+    </section>
+</div>
+</j:jelly>]]></html>
+<name>upload_scope_excel</name>
+<processing_script><![CDATA[//  response.sendRedirect("x_adga_project_p_0_scope.do?sys_id=" + 'f3ee391f978836501da1bb77f053afac');]]></processing_script>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>izt.krishna</sys_created_by>
+<sys_created_on>2025-09-23 08:40:23</sys_created_on>
+<sys_id>7e86f61f47c4ba50f73ef6a8536d4388</sys_id>
+<sys_mod_count>131</sys_mod_count>
+<sys_name>upload_scope_excel</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy/>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_ui_page_7e86f61f47c4ba50f73ef6a8536d4388</sys_update_name>
+<sys_updated_by>izt.krishna</sys_updated_by>
+<sys_updated_on>2025-10-09 09:41:27</sys_updated_on>
+</sys_ui_page>
+</unload>

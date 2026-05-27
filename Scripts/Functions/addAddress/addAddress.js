@@ -9,3 +9,6 @@ for (var p = 0; p < emailArr.length > 0; p++) {
 		var temp = emailArr[p];
 		email.addAddress('cc', temp.email.toString(), temp.name);
 }
+// Add the email address to the email object as a CC recipient
+// Example usage:
+//${mail_script:test_script}

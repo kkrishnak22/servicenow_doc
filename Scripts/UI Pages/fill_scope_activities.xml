@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2026-04-14 06:24:43">
+<sys_ui_page action="INSERT_OR_UPDATE">
+<category>general</category>
+<client_script><![CDATA[function onCancel() {
+    GlideDialogWindow.get().destroy();
+    return false;
+}
+function highlightErrorRow(rowIndex) {
+    // First, remove error class from ALL rows
+    var allRows = document.querySelectorAll('.table-modern tbody tr');
+    allRows.forEach(function(row) {
+        row.classList.remove('error-row');
+    });
+    
+    // Then add error class to the specific row
+    var row = document.querySelector('.table-modern tbody tr:nth-child(' + rowIndex + ')');
+    
+    if (row) {
+        // Add error class
+        row.classList.add('error-row');
+        
+        // Scroll the row into view
+        row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+function formatDateDDMMYYYY(dateStr) {
+    var parts = dateStr.split("-"); // [yyyy, mm, dd]
+    return parts[2] + "-" + parts[1] + "-" + parts[0];
+}
+
+function onSubmit() {
+    var rowCount = parseInt(gel("row_count").value, 10);
+	
+
+    // decimal/float ONLY: allows "12.3", "0.5", ".5" but NOT "12"
+    var decimalOnlyRegex = /^[0-9]*\.?[0-9]+$/;
+
+    var scopeStart = document.getElementById("sysparm_start_date").value;
+    var scopeStartDate = getDateFromFormat(scopeStart, g_user_date_format);
+
+    var scopeEnd = document.getElementById("sysparm_end_date").value;
+    var scopeEndDate = getDateFromFormat(scopeEnd, g_user_date_format);
+
+    for (var i = 1; i <= rowCount; i++) {
+        var activityName = (document.getElementById("activity_name_" + i)?.value || "this activity");
+
+        var scopeVal = (document.getElementById("scope_" + i).value || "").trim();
+        var startVal = (document.getElementById("start_" + i).value || "").trim();
+        var endVal = (document.getElementById("end_" + i).value || "").trim();
+        var applicableVal = (document.getElementById("u_applicable_" + i).value || "").trim();
+
+        var formattedStartVal = formatDateDDMMYYYY(startVal);
+        var startDate = getDateFromFormat(formattedStartVal, g_user_date_format);
+
+        var formattedEndVal = formatDateDDMMYYYY(endVal);
+        var endDate = getDateFromFormat(formattedEndVal, g_user_date_format);
+
+        var requiredFields = (document.getElementById("required_" + i).value || "").split(",");
+		
+		// Skip validation if applicable is 'no'
+		if (applicableVal.toLowerCase() == 'no') {
+			continue; // Skip this loop
+		}
+        for (var j = 0; j < requiredFields.length; j++) {
+            var field = requiredFields[j].trim().toLowerCase();
+			
+            if (field === "scope") {
+                if (!scopeVal) {
+					highlightErrorRow(i);
+                    alert("Scope is mandatory for activity: " + activityName);
+                    return false;
+                }
+                if (!decimalOnlyRegex.test(scopeVal)) {
+					highlightErrorRow(i);
+                    alert("Scope must be an integer or decimal for activity: " + activityName);
+                    return false;
+                }
+            }
+
+            if (field === "start") {
+                if (!startVal) {
+					highlightErrorRow(i);
+                    alert("Planned Start Date is mandatory for activity: " + activityName);
+                    return false;
+                }
+                if (startDate < scopeStartDate || startDate > scopeEndDate) {
+					highlightErrorRow(i);
+                    alert("Planned Start Date for activity " + activityName +
+                          " must be within the Scope Start/End Dates.");
+                    return false;
+                }
+                if (startDate > endDate) {
+					highlightErrorRow(i);
+                    alert("Start Date for activity " + activityName +
+                          " cannot be after the End Date.");
+                    return false;
+                }
+            }
+
+            if (field === "end") {
+                if (!endVal) {
+					highlightErrorRow(i);
+                    alert("Planned End Date is mandatory for activity: " + activityName);
+                    return false;
+                }
+                if (endDate > scopeEndDate || endDate < scopeStartDate) {
+					highlightErrorRow(i);
+                    alert("Planned End Date for activity " + activityName +
+                          " must be within the Scope Start/End Dates.");
+                    return false;
+                }
+                if (endDate < startDate) {
+					highlightErrorRow(i);
+                    alert("End Date for activity " + activityName +
+                          " cannot be before the Start Date.");
+                    return false;
+                }
+            }
+        }
+    }
+    document.getElementById("sysparm_action").value = "onSubmitScript";
+    return true;
+}
+
+function onSave() {
+    var rowCount = parseInt(document.getElementById("row_count").value, 10) || 0;
+
+    var scopeStart = document.getElementById("sysparm_start_date").value;
+    var scopeStartDate = getDateFromFormat(scopeStart, g_user_date_format);
+
+    var scopeEnd = document.getElementById("sysparm_end_date").value;
+    var scopeEndDate = getDateFromFormat(scopeEnd, g_user_date_format);
+
+    var numberRegex = /^[0-9]+(\.[0-9]+)?$/;
+
+    for (var i = 1; i <= rowCount; i++) {
+        var activityName = (document.getElementById("activity_name_" + i)?.value || "this activity");
+
+        var scopeVal = (document.getElementById("scope_" + i).value || "").trim();
+        var startVal = (document.getElementById("start_" + i).value || "").trim();
+        var endVal = (document.getElementById("end_" + i).value || "").trim();
+
+        // Scope validation
+        if (scopeVal && !numberRegex.test(scopeVal)) {
+			highlightErrorRow(i);
+            alert("Scope for activity " + activityName + " must be a valid number.");
+            return false;
+        }
+
+        if (startVal && endVal) {
+            var formattedStartVal = formatDateDDMMYYYY(startVal);
+            var startDate = getDateFromFormat(formattedStartVal, g_user_date_format);
+
+            var formattedEndVal = formatDateDDMMYYYY(endVal);
+            var endDate = getDateFromFormat(formattedEndVal, g_user_date_format);
+
+            if (startDate < scopeStartDate || startDate > scopeEndDate) {
+				highlightErrorRow(i);
+                alert("Planned Start Date for activity " + activityName +
+                      " must be within the Scope Start/End Dates.");
+                return false;
+            }
+            if (startDate > endDate) {
+				highlightErrorRow(i);
+                alert("Start Date for activity " + activityName +
+                      " cannot be after the End Date.");
+                return false;
+            }
+
+            if (endDate > scopeEndDate || endDate < scopeStartDate) {
+				highlightErrorRow(i);
+                alert("Planned End Date for activity " + activityName +
+                      " must be within the Scope Start/End Dates.");
+                return false;
+            }
+            if (endDate < startDate) {
+				highlightErrorRow(i);
+                alert("End Date for activity " + activityName +
+                      " cannot be before the Start Date.");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+]]></client_script>
+<description/>
+<direct>false</direct>
+<endpoint>x_adga_project_p_0_fill_scope_activities.do</endpoint>
+<html><![CDATA[<j:jelly xmlns:j="jelly:core" xmlns:g="glide">
+	<g:ui_form>
+		<style>
+			:root {
+
+				--accent: #5a32ff;
+
+				--accent-2: #7a5cff;
+
+				--border: #d1d5db;
+
+				--text: #111827;
+
+				--muted: #6b7280;
+
+				--surface: #ffffff;
+
+				/* header gradient left (#475ed1) → right (#bd3861) */
+
+				--header-bg: linear-gradient(90deg, #475ed1 0%, #bd3861 100%);
+
+			}
+
+			.snx-card {
+
+				background: var(--surface);
+
+				border: 2px solid var(--border);
+
+				border-radius: 14px;
+
+				box-shadow: 0 6px 20px rgba(20, 20, 43, .06);
+
+				overflow: hidden;
+
+			}
+
+			/* Compact header */
+
+			.snx-card__header {
+
+				background: var(--header-bg);
+
+				color: #fff;
+
+				padding: 12px 20px;
+
+				display: flex;
+				flex-direction: column;
+				gap: 4px;
+				position: relative;
+
+			}
+
+			.snx-card__header:after {
+
+				content: "";
+				position: absolute;
+				inset: 0;
+
+				background: radial-gradient(1200px 220px at 20% -10%, rgba(255, 255, 255, .18), transparent 60%);
+
+				pointer-events: none;
+
+			}
+
+			.snx-eyebrow {
+				font-size: 11px;
+				letter-spacing: .16em;
+				opacity: .9;
+				text-transform: uppercase
+			}
+
+			.snx-title {
+				font-size: 18px;
+				font-weight: 800;
+				letter-spacing: .2px
+			}
+
+			.snx-header-bar {
+				height: 3px;
+				background: linear-gradient(90deg, #fff, rgba(255, 255, 255, .6), transparent);
+				opacity: .6;
+				margin-top: 4px;
+				border-radius: 999px
+			}
+
+			.snx-card__body {
+				padding: 14px 14px 0 14px
+			}
+
+			.snx-scroll {
+				max-height: 360px;
+				overflow: auto;
+				border: 1px solid var(--border);
+				border-radius: 12px
+			}
+
+			.table-modern {
+				width: 100%;
+				border-collapse: separate;
+				border-spacing: 0
+			}
+
+			.table-modern caption {
+				position: absolute;
+				left: -9999px;
+				top: auto;
+				width: 1px;
+				height: 1px;
+				overflow: hidden
+			}
+
+			.table-modern thead th {
+
+				position: sticky;
+				top: 0;
+				z-index: 2;
+
+				background: linear-gradient(180deg, #f8f9fc 0%, #eef2ff 100%);
+
+				color: #374151;
+				text-align: left;
+				font-size: 11px;
+				/* was 12px */
+
+				letter-spacing: .08em;
+				text-transform: uppercase;
+
+				padding: 9px 14px;
+				/* was 12px 14px -> ~3/4 height */
+
+				border-bottom: 1px solid var(--border);
+
+			}
+
+			.table-modern thead th:first-child {
+				border-top-left-radius: 12px
+			}
+
+			.table-modern thead th:last-child {
+				border-top-right-radius: 12px
+			}
+
+			.table-modern thead::after {
+				content: "";
+				position: sticky;
+				top: 0;
+				display: block;
+				height: 1px;
+				box-shadow: 0 6px 10px rgba(17, 24, 39, .08)
+			}
+
+
+			.table-modern tbody td {
+
+				padding: 9px 14px;
+
+				border-bottom: 1px solid var(--border);
+
+				color: var(--text);
+
+				vertical-align: middle;
+
+				font-size: 13px;
+
+			}
+
+			.table-modern tbody tr:nth-child(even) {
+				background: #fbfbff
+			}
+
+			.table-modern tbody tr:hover {
+				background: #f6f8ff
+			}
+
+			/* Sticky first column */
+
+			.table-modern .sticky-col {
+				position: sticky;
+				left: 0;
+				background: #fff;
+				z-index: 1;
+				border-right: 1px solid var(--border)
+			}
+
+			thead .sticky-col {
+				background: linear-gradient(180deg, #f8f9fc 0%, #eef2ff 100%);
+				z-index: 3
+			}
+
+			.col-num {
+				width: 64px;
+				text-align: center;
+				color: #6b7280
+			}
+
+
+			.table-modern .input-modern {
+
+				padding: 8px 10px;
+
+				font-size: 13px;
+
+			}
+
+
+			.input-modern {
+
+				width: 100%;
+
+				padding: 10px 12px;
+
+				border: 1px solid var(--border);
+
+				border-radius: 10px;
+
+				outline: none;
+
+				transition: border .2s, box-shadow .2s;
+
+				font-size: 14px;
+
+			}
+
+			.input-modern:focus {
+				border-color: var(--accent);
+				box-shadow: 0 0 0 3px rgba(90, 50, 255, .18)
+			}
+
+
+			.actions {
+				display: flex;
+				gap: 10px;
+				justify-content: flex-end;
+				padding: 16px;
+				border-top: 1px solid var(--border);
+				background: #fff
+			}
+
+			.btn-modern {
+				border: 0;
+				border-radius: 12px;
+				padding: 10px 16px;
+				font-weight: 600;
+				cursor: pointer;
+				transition: transform .06s, box-shadow .2s, filter .2s;
+				box-shadow: 0 6px 16px rgba(20, 20, 43, .08);
+				display: inline-flex;
+				align-items: center;
+				gap: 8px
+			}
+
+			.btn-modern:active {
+				transform: translateY(1px)
+			}
+
+			.btn-primary-modern {
+				color: #fff;
+				background: linear-gradient(135deg, var(--accent), var(--accent-2))
+			}
+
+			.btn-primary-modern:hover {
+				filter: brightness(1.05)
+			}
+
+			.btn-neutral-modern {
+				background: #f3f4f6;
+				color: #111827;
+				border: 1px solid var(--border)
+			}
+
+			.btn-neutral-modern:hover {
+				background: #eef1ff;
+				border-color: var(--accent)
+			}
+
+			.btn-ghost-modern {
+				background: #fff;
+				color: #374151;
+				border: 1px solid var(--border)
+			}
+
+			.btn-ghost-modern:hover {
+				background: #fafbff;
+				border-color: var(--accent)
+			}
+
+			.btn-ico {
+				width: 16px;
+				height: 16px;
+				display: inline-block;
+				line-height: 0
+			}
+
+			@keyframes highlight-error {
+
+				0%,
+				100% {
+					background-color: transparent;
+				}
+
+				50% {
+					background-color: #fee2e2;
+				}
+			}
+
+			.error-row {
+				background-color: #fef2f2 !important;
+				animation: highlight-error 0.6s ease-in-out 2;
+				border-left: 3px solid #dc2626 !important;
+			}
+
+			.error-row td {
+				color: #991b1b;
+			}
+		</style>
+
+		<div class="snx-card">
+			<div class="snx-card__header">
+				<div class="snx-eyebrow">Project Planning</div>
+				<div class="snx-title">List of Activities</div>
+				<div class="snx-header-bar"></div>
+			</div>
+
+			<div class="snx-card__body">
+				<input type="hidden" id="sysparm_action" name="sysparm_action" value="" />
+				<input type="hidden" name="sysparm_scope_id" value="${sysparm_scope_id}" />
+				<input type="hidden" name="sysparm_start_date" id="sysparm_start_date" value="${sysparm_start_date}" />
+				<input type="hidden" name="sysparm_end_date" id="sysparm_end_date" value="${sysparm_end_date}" />
+
+				<div class="snx-scroll">
+					<table class="table-modern" role="table">
+						<caption>Activities list with type, strata, scope and planned dates</caption>
+						<colgroup>
+							<col style="width:64px;">
+							</col>
+							<col>
+							</col>
+							<col>
+							</col>
+							<col>
+							</col>
+							<col>
+							</col>
+							<col>
+							</col>
+							<col>
+							</col>
+							<col>
+							</col>
+						</colgroup>
+						<thead>
+							<tr>
+								<th class="sticky-col col-num">S No</th>
+								<th style="display:none;">Sys ID</th>
+								<th>Activity Name</th>
+								<th>Type</th>
+								<th>Strata</th>
+								<th>Unit</th>
+								<th>Scope</th>
+								<th>Planned Start Date</th>
+								<th>Planned End Date</th>
+								<!-- 	// For u_applicable -->
+								<th>Activity Applicable</th>
+								<!-- 	// Primavera Activity No -->
+								<th>Primavera Activity No</th>
+							</tr>
+						</thead>
+						<tbody>
+							<g:evaluate var="jvar_count" object="true">0</g:evaluate>
+							<g:evaluate var="grActivities" jelly="true">
+
+								var gr = new GlideRecord('x_adga_project_p_0_activities');
+								gr.addQuery('scope_ref', "${sysparm_scope_id}");
+								gr.orderBy('number');
+								gr.query();
+								gr;
+							</g:evaluate>
+
+							<j:while test="${gr.next()}">
+								<g:evaluate var="jvar_count">${jvar_count + 1}</g:evaluate>
+								<tr>
+									<td class="sticky-col col-num">${jvar_count}</td>
+									<td style="display:none;">
+										<input type="hidden" name="sys_id_${jvar_count}" id="sys_id_${jvar_count}"
+											value="${gr.sys_id}" />
+									</td>
+									<td>${gr.activity_name.activity_description}</td>
+									<td>${gr.activity_name.type}</td>
+									<td>${gr.activity_name.strata}</td>
+									<td>${gr.activity_name.unit}</td>
+									<td style="display:none;">
+										<input type="hidden" id="activity_name_${jvar_count}"
+											value="${gr.activity_name.activity_description}" />
+									</td>
+
+									<td>
+										<input class="input-modern" type="text" name="scope_${jvar_count}"
+											id="scope_${jvar_count}" value="${gr.scope}"
+											placeholder="Fill the Scope Value "
+											aria-label="Scope for row ${jvar_count}" />
+									</td>
+									<td>
+										<input class="input-modern" type="date" name="start_${jvar_count}"
+											id="start_${jvar_count}" value="${gr.planned_start_date}"
+											aria-label="Planned start date for row ${jvar_count}" />
+									</td>
+									<td>
+										<input class="input-modern" type="date" name="end_${jvar_count}"
+											id="end_${jvar_count}" value="${gr.planned_end_date}"
+											aria-label="Planned end date for row ${jvar_count}" />
+									</td>
+									<!-- 	// For u_applicable -->
+									<td>
+
+										<select class="input-modern" name="u_applicable_${jvar_count}"
+											id="u_applicable_${jvar_count}" data-value="${gr.u_applicable}"
+											aria-label="Activity applicable for row ${jvar_count}">
+											<option value="yes">Yes</option>
+											<option value="no">No</option>
+										</select>
+									</td>
+									<!-- 	// Primavera Activity No -->
+									<td>
+										<input class="input-modern" type="text"
+											name="primavera_activity_no_${jvar_count}"
+											id="primavera_activity_no_${jvar_count}" value="${gr.primavera_activity_no}"
+											placeholder="Fill the Primavera Activity No"
+											aria-label="Primavera Activity No for row ${jvar_count}" />
+									</td>
+
+
+									<td style="display:none;">
+										<input type="hidden" id="required_${jvar_count}" value="scope,start,end" />
+									</td>
+								</tr>
+							</j:while>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<footer class="actions">
+				<button class="btn-modern btn-ghost-modern" onclick="return onCancel();" name="cancel" id="cancel"
+					aria-label="Cancel">
+					<span class="btn-ico" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+							<path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20z" fill="none" stroke="currentColor"
+								stroke-width="1.6" />
+							<path d="M7.5 15.5l9-9M16.5 15.5l-9-9" fill="none" stroke="currentColor" stroke-width="1.6"
+								stroke-linecap="round" />
+						</svg>
+					</span>
+
+					${gs.getMessage('Cancel')}
+				</button>
+				<button class="btn-modern btn-neutral-modern" onclick="return onSave();" name="save" id="save"
+					aria-label="Save">
+					<span class="btn-ico" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+							<path d="M5 21h14V7l-3-3H5v17z" fill="none" stroke="currentColor" stroke-width="1.6"
+								stroke-linejoin="round" />
+							<path d="M8 15h8M7 4v4h7" fill="none" stroke="currentColor" stroke-width="1.6"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</span>
+
+					${gs.getMessage('Save')}
+				</button>
+				<button class="btn-modern btn-primary-modern" onclick="return onSubmit();" name="submit" id="submit"
+					aria-label="Submit">
+					<span class="btn-ico" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+							<path d="M21 7L9 19 3 13" fill="none" stroke="currentColor" stroke-width="1.8"
+								stroke-linecap="round" stroke-linejoin="round" />
+						</svg>
+					</span>
+
+					${gs.getMessage('Submit')}
+				</button>
+			</footer>
+		</div>
+
+		<input type="hidden" name="row_count" id="row_count" value="${jvar_count}" />
+	</g:ui_form>
+	<script>
+		// Set the value after the DOM is loaded
+document.querySelectorAll('select[data-value]').forEach(select => {
+    select.value = select.getAttribute('data-value');
+});
+	</script>
+</j:jelly>]]></html>
+<name>fill_scope_activities</name>
+<processing_script><![CDATA[var rowCount = parseInt(request.getParameter("row_count"), 10) || 0;
+
+var parentScopeId = "";
+for (var i = 1; i <= rowCount; i++) {
+	var sysId = request.getParameter("sys_id_" + i);
+	var scopeVal = request.getParameter("scope_" + i);
+	var startVal = request.getParameter("start_" + i);
+	var endVal = request.getParameter("end_" + i);
+	// For u_applicable
+	var applicableVal = request.getParameter("u_applicable_" + i);
+
+	// For primavera_activity_no
+	var primaveraActivityNo = request.getParameter("primavera_activity_no_" + i);
+
+
+	if (!sysId) {
+		
+		continue;
+	}
+
+	var gr = new GlideRecord("x_adga_project_p_0_activities");
+	if (gr.get(sysId)) {
+
+		if (gr.scope_ref) {
+			parentScopeId = gr.scope_ref.toString();
+		}
+		gr.scope = scopeVal || "";
+		gr.planned_start_date = startVal || "";
+		gr.planned_end_date = endVal || "";
+		// For u_applicable
+		gr.u_applicable = applicableVal;
+		// For primavera_activity_no
+		gr.primavera_activity_no = primaveraActivityNo;
+
+		gr.update();
+		
+	} else {
+		
+	}
+}
+var action = request.getParameter("sysparm_action");
+
+if (action == 'onSubmitScript' && parentScopeId) {
+	var scopeGR = new GlideRecord("x_adga_project_p_0_scope");
+	if (scopeGR.get(parentScopeId)) {
+		scopeGR.sub_state = "2";
+		scopeGR.update();
+		
+		if (scopeGR.project) {
+			var projectGR = new GlideRecord("x_adga_project_p_0_project");
+			if (projectGR.get(scopeGR.project)) {
+				projectGR.u_project_state = "In Progress";
+				projectGR.update();
+				
+			}
+		}
+
+		// Create Monthly Activites in x_adga_project_p_0_monthly_activities  when user clicks on submit button in UI Page
+		// For Each activity based on planned start date and end date create month wise records.
+		var activitiesGR = new GlideRecord("x_adga_project_p_0_activities");
+		activitiesGR.addQuery("scope_ref", parentScopeId);
+		activitiesGR.addQuery("u_applicable", "yes"); // dont create monthly activites if it is no
+		activitiesGR.query();
+
+		while (activitiesGR.next()) {
+			var startDate = activitiesGR.planned_start_date;
+			var endDate = activitiesGR.planned_end_date;
+
+			if (!startDate || !endDate) {
+			
+				continue;
+			}
+
+			var start = new GlideDateTime(startDate);
+			var end = new GlideDateTime(endDate);
+
+			// Get start month and year
+			var currentDate = new GlideDateTime(start);
+
+			// Loop through each month between start and end date
+			while (currentDate.compareTo(end) <= 0) {
+				var monthNum = parseInt(currentDate.getMonthLocalTime(), 10); // Returns 1-12 (January=1)
+				var yearNum = parseInt(currentDate.getYearLocalTime(), 10);
+
+				// Create new monthly activity record
+				var monthlyGR = new GlideRecord("x_adga_project_p_0_monthly_activities");
+				monthlyGR.initialize();
+				monthlyGR.parent = activitiesGR.sys_id;
+				monthlyGR.u_month = monthNum;
+				monthlyGR.u_year = yearNum;
+				monthlyGR.insert();
+				
+				// Move to next month
+				currentDate.addMonthsLocalTime(1);
+				currentDate.setDayOfMonthLocalTime(1); // Reset to first day of next month
+			}
+		}
+
+	}
+}
+
+
+
+if (parentScopeId) {
+	response.sendRedirect("x_adga_project_p_0_scope.do?sys_id=" + parentScopeId);
+}
+]]></processing_script>
+<sys_class_name>sys_ui_page</sys_class_name>
+<sys_created_by>izt.lokesh</sys_created_by>
+<sys_created_on>2025-08-08 11:37:53</sys_created_on>
+<sys_id>294622a8471b2690f73ef6a8536d43a3</sys_id>
+<sys_mod_count>264</sys_mod_count>
+<sys_name>fill_scope_activities</sys_name>
+<sys_package display_value="Project Permissions" source="x_adga_project_p_0">8138247b87597d10ffcaea080cbb35e7</sys_package>
+<sys_policy/>
+<sys_scope display_value="Project Permissions">8138247b87597d10ffcaea080cbb35e7</sys_scope>
+<sys_update_name>sys_ui_page_294622a8471b2690f73ef6a8536d43a3</sys_update_name>
+<sys_updated_by>izt.krishna</sys_updated_by>
+<sys_updated_on>2025-10-30 17:40:20</sys_updated_on>
+</sys_ui_page>
+</unload>
