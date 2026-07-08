@@ -1,0 +1,66 @@
+*Interview questions asked For 2.5 year experience at Deloitte India*
+
+Deloitte L1
+- intro 
+- Decision table - basics
+- Flow designer - action and subflow creations
+- Have you done any Integration using Integration Hub 
+- Apache kafka Integration - set-up 
+- Have you worked on Glidedatetime
+
+Deloitte L2
+- Whenever I change a caller field need to populate the department which is tagged to user on Incident form
+- Decision table - Implementation scenarios
+- how did you done linking ServiceNow to GIt-HUB
+- How many ways to move Update sets and how to configure remote instance (under teams dashboard application) setup
+- When an incident is assigned trigger a notification and in that email body provide a Hyperlink to that Incident
+- Have you worked on email script 
+- Inbound Email action 
+- where I used sys_template and how to apply it on a case/task form
+- Tell me about Inbound Integration implementation steps?
+- If an integration failed due to some issue how do you log those errors ?
+- Have you used Auth 2.0 authentication before ?
+- I created a User and given write Access on table by creating write ACL will he able to perform that action or does he need read access too? 
+- Difference between Query business rule and ACL?
+- How do you trigger an event
+- Rest message syntax
+- have you worked on Catalogs?
+- Archive and Purge rules what is developed?
+- How do you restore archived records.
+- Asked some scenarios on Glidedatetime like adding days, duration with in scheduled working time?
+- Agentic AI - if used before?
+- what you done in Financial Service Operations application?
+
+
+Standard Chartered Bank interview questions:-
+
+Round 1 :- 
+
+1. What are the way to make the field mandatory in ServiceNow..?
+2. Difference between esc and esc pro..?
+3. Why get reference is not preferable to use..?
+4. What is the use of gsft submit...?
+5. How to call script include from Reference qualifier..?
+6. Difference between current and previous release of servicenow.
+7. 3 examples of async business rule..on which 1 code need to write .
+8. While creating hr services what are the thing is mandatory.. which need to fill..
+9. Lifecycle event activity trigger method.
+10. How to call flow from business rule..
+11. Write a script whenever the assignment group name is filled in assignment group field in incident table..all the members present in group populated in description field.
+2nd 
+11. Type of C and their role in maintaining the health of CMDB.
+12.variable set and hrsd relationship table name.
+13. Design a flow designer when catalog request is submitted it should assign to Network group ( pdi provided by interviewer)
+14. Difference between GlideRecord and GlideRecordsecure..?
+15. Type of application trigger in Flow-designer 
+16. How to send data from server side to client side in portal..
+17. What have you done in change request..?
+18. write a script to close the P1 incidents once the problem ticket is closed
+19.if query br and reference qualifier is given.. which one is good to use.
+
+Managerial round:-
+
+1. Which modules are you interested to work and why..?
+2. sla related questions 
+3. Complex asked based upon client ask and requirements.
+4. How to handle the load if there is 2 P1 ticket in different regions, which one you will prioritize to handle.
