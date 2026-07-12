@@ -1,0 +1,4 @@
+interface:
+  display_name: "ServiceNow Email CC"
+  short_description: "Add CC and BCC in ServiceNow email scripts"
+  default_prompt: "Use $servicenow-email-cc to add a user as CC in a ServiceNow email script."
