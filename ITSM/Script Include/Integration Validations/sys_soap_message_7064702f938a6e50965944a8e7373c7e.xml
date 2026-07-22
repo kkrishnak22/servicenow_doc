@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2026-07-21 17:16:27">
+<sys_soap_message action="INSERT_OR_UPDATE">
+<access>package_private</access>
+<authentication_type>basic</authentication_type>
+<basic_auth_password/>
+<basic_auth_profile display_value="Adani Algosec User">46c859dd476ee210f5c6bd39516d4371</basic_auth_profile>
+<basic_auth_user/>
+<description>Used to send the request details to algosec</description>
+<download_wsdl>false</download_wsdl>
+<enable_mutual_auth>false</enable_mutual_auth>
+<name>Algosec ticket Creation</name>
+<protocol_profile display_value=""/>
+<sys_class_name>sys_soap_message</sys_class_name>
+<sys_created_by>izt.muthukumaran</sys_created_by>
+<sys_created_on>2025-06-16 07:45:30</sys_created_on>
+<sys_id>7064702f938a6e50965944a8e7373c7e</sys_id>
+<sys_mod_count>21</sys_mod_count>
+<sys_name>Algosec ticket Creation</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sys_soap_message_7064702f938a6e50965944a8e7373c7e</sys_update_name>
+<sys_updated_by>izt.raghavendraj</sys_updated_by>
+<sys_updated_on>2026-06-10 04:46:29</sys_updated_on>
+<use_basic_auth>false</use_basic_auth>
+<wsdl>test-https://10.80.122.122/WebServices/FireFlow.wsdl</wsdl>
+<wsdl_xml><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions  targetNamespace="https://www.algosec.com/WSHandler" name="FireFlowWebService" xmlns="http://schemas.xmlsoap.org/wsdl/" 
+			  xmlns:wsp="http://www.w3.org/ns/ws-policy"
+			  xmlns:tns="https://www.algosec.com/WSHandler"
+			  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+			  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			  xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
+			  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+			  xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+			  xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+	<types>
+		<xs:schema version="1.0"  targetNamespace="https://www.algosec.com/WSHandler"
+								  xmlns:tns="https://www.algosec.com/WSHandler"
+								  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+			<xs:element name="createTicket" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="ticket" type="tns:ticket" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="createTicketResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="message" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="ticketDisplayURL" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="ticketId" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="authenticate" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="username" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="password" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="domain" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="authenticateResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="faSessionId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="phpSessionId" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="faToken" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="ldapMemberOfDNs" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getTicket" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="ticketId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="getTicketResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="ticket" type="tns:ticket" nillable="true" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="subTicketIds" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="parentTicketId" type="xs:int" nillable="true" minOccurs="0" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="getFields" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="ticketId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="fields" type="tns:fields" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getFieldsResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="fields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="getTemplateFields" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="getTemplateFieldsResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="template" type="tns:templateCFs" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="isSessionAlive" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="isSessionAliveResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="updateObjectCustomField" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="objectType" type="tns:objectType" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="objectId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="customField" type="tns:customField" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="updateObjectCustomFieldResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<!-- result values: 1 for success, 0 for failure -->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="addObjectCustomField" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="objectType" type="tns:objectType" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="objectId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="customField" type="tns:customField" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="addObjectCustomFieldResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<!-- result values: 1 for success, 0 for failure -->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="deleteObjectCustomField" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FFWSHeader" type="tns:FFWSHeader" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="sessionId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="objectType" type="tns:objectType" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="objectId" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="customField" type="tns:customField" minOccurs="1" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="deleteObjectCustomFieldResponse" nillable="false" >
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="result" type="xs:int" minOccurs="1" maxOccurs="1"/>
+						<!-- result values: 1 for success, 0 for failure -->
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:complexType name="FFWSHeader">
+				<xs:sequence>
+					<xs:element name="version" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="opaque" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="ticket">
+				<xs:sequence>
+					<xs:element name="template" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="attachments" type="tns:attachment" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="cc" type="xs:string" minOccurs="0"/>
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="description" type="xs:string" minOccurs="0"/>
+					<xs:element name="devices" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="due" type="xs:string" minOccurs="0"/>
+					<xs:element name="expire" type="xs:string" minOccurs="0"/>
+					<xs:element name="externalId" type="xs:string" minOccurs="0"/>
+					<xs:element name="owner" type="xs:string" minOccurs="0"/>
+					<xs:element name="priority" type="xs:string" minOccurs="0"/>
+					<xs:element name="refersTo" type="xs:string" minOccurs="0"/>
+					<xs:element name="referredBy" type="xs:string" minOccurs="0"/>
+					<xs:element name="requestor" type="xs:string" minOccurs="0"/>
+					<xs:element name="requestorEmail" type="xs:string" minOccurs="0"/>
+					<xs:element name="subject" type="xs:string" minOccurs="0"/>
+					<xs:element name="trafficLines" type="tns:trafficLine" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="objectChangeLines" type="tns:objectChangeLine" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="status" type="xs:string" minOccurs="0"/>
+					<xs:element name="id" type="xs:int" minOccurs="0"/>
+					<xs:element name="domain" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="fields">
+				<xs:sequence>
+					<xs:element name="key" type="xs:string" minOccurs="0"  maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+			<!-- Allowed Keys: -->
+			<!-- All user-defined custom fields under cateogry "additional" -->
+			<!-- All user-defined custom fields under cateogry "external API" -->
+			<!-- The following fields:
+				id
+				status
+				subject
+				requestor
+				requestorEmail
+				owner
+				cc
+				due
+				expire
+				priority
+				devices
+				template
+				description
+				domain
+				externalId
+				refersTo
+				referredBy
+				owning group
+				additional responsible groups
+			-->
+			<xs:complexType name="templateCFs">
+				<xs:sequence>
+					<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="enabled" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="customField" type="tns:customFieldData" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="customFieldData">
+				<xs:sequence>
+					<xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="displayName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="type" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="maxValues" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="category" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="defaultValue" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="validation" type="xs:string" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="customField">
+				<xs:sequence>
+					<xs:element name="key" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="values" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="attachment">
+				<xs:sequence>
+					<xs:element name="fileName" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					<xs:element name="fileContent" type="xs:base64Binary" nillable="true" minOccurs="1" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="trafficLine">
+				<xs:sequence>
+					<xs:element name="action" type="xs:int"/>
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="nat" type="tns:trafficNAT" minOccurs="0"/>
+					<xs:element name="trafficDestination" type="tns:trafficAddress" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="trafficService" type="tns:trafficService" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="trafficSource" type="tns:trafficAddress" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="trafficUser" type="tns:trafficUser" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="trafficApplication" type="tns:trafficApplication" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="trafficLineOriginalId" type="xs:string" nillable="true" minOccurs="0" maxOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="trafficNAT">
+				<xs:sequence>
+					<xs:element name="destination" type="xs:string" minOccurs="0"/>
+					<xs:element name="port" type="xs:int" minOccurs="0"/>
+					<xs:element name="source" type="xs:string" minOccurs="0"/>
+					<xs:element name="type" type="xs:int"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="trafficAddress">
+				<xs:sequence>
+					<xs:element name="address" type="xs:string" minOccurs="0"/>
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="trafficService">
+				<xs:sequence>
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="service" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="trafficUser">
+				<xs:sequence>
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="user" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="trafficApplication">
+				<xs:sequence>
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="application" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:complexType name="objectChangeLine">
+				<xs:sequence>
+					<xs:element name="action" type="xs:string"/> 
+					<xs:element name="objectType" type="xs:string"/>
+					<xs:element name="objectName" type="xs:string"/>
+					<xs:element name="actionTarget" type="xs:string"/>
+					<xs:element name="values" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/> 
+					<xs:element name="customFields" type="tns:customField" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+					<xs:element name="scope" type="xs:int"/> 
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:simpleType name="objectType">
+			  <xs:restriction base="xs:string">
+			    <xs:enumeration value="ticket" />
+			    <xs:enumeration value="user" />
+			    <xs:enumeration value="group" />
+			  </xs:restriction>
+			</xs:simpleType>
+
+			<xs:element name="ErrorDetails">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="code" type="xs:int" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>	
+		</xs:schema>
+	</types>
+
+	<message name="createTicket">
+		<part name="parameters" element="tns:createTicket"/>
+	</message>
+
+	<message name="createTicketResponse">
+		<part name="parameters" element="tns:createTicketResponse"/>
+	</message>
+
+	<message name="getTicket">
+		<part name="parameters" element="tns:getTicket"/>
+	</message>
+	<message name="getTicketResponse">
+		<part name="parameters" element="tns:getTicketResponse"/>
+	</message>
+	<message name="getFields">
+		<part name="parameters" element="tns:getFields"/>
+	</message>
+	<message name="getFieldsResponse">
+		<part name="parameters" element="tns:getFieldsResponse"/>
+	</message>
+	<message name="getTemplateFields">
+		<part name="parameters" element="tns:getTemplateFields"/>
+	</message>
+	<message name="getTemplateFieldsResponse">
+		<part name="parameters" element="tns:getTemplateFieldsResponse"/>
+	</message>
+
+	<message name="authenticate">
+		<part name="parameters" element="tns:authenticate"/>
+	</message>
+
+	<message name="authenticateResponse">
+		<part name="parameters" element="tns:authenticateResponse"/>
+	</message>
+
+	<message name="isSessionAlive">
+		<part name="parameters" element="tns:isSessionAlive"/>
+	</message>
+
+	<message name="isSessionAliveResponse">
+		<part name="parameters" element="tns:isSessionAliveResponse"/>
+	</message>
+
+	<message name="updateObjectCustomField">
+		<part name="parameters" element="tns:updateObjectCustomField"/>
+	</message>
+
+	<message name="updateObjectCustomFieldResponse">
+		<part name="parameters" element="tns:updateObjectCustomFieldResponse"/>
+	</message>
+
+	<message name="addObjectCustomField">
+		<part name="parameters" element="tns:addObjectCustomField"/>
+	</message>
+
+	<message name="addObjectCustomFieldResponse">
+		<part name="parameters" element="tns:addObjectCustomFieldResponse"/>
+	</message>
+
+	<message name="deleteObjectCustomField">
+		<part name="parameters" element="tns:deleteObjectCustomField"/>
+	</message>
+
+	<message name="deleteObjectCustomFieldResponse">
+		<part name="parameters" element="tns:deleteObjectCustomFieldResponse"/>
+	</message>
+
+	<message name="error">
+		<part name="details" element="tns:ErrorDetails"/>
+	</message>
+
+	<portType name="FireFlowWebServicePortType">
+		<operation name="createTicket">
+			<input message="tns:createTicket"/>
+			<output message="tns:createTicketResponse"/>
+			 <fault message="tns:error" name="FireFlowError"/>
+		</operation>
+		<operation name="getTicket">
+			<input message="tns:getTicket" />
+			<output message="tns:getTicketResponse" />
+			 <fault message="tns:error" name="FireFlowError" />
+		</operation>
+		<operation name="getFields">
+			<input message="tns:getFields" />
+			<output message="tns:getFieldsResponse" />
+			 <fault message="tns:error" name="FireFlowError" />
+		</operation>
+		<operation name="getTemplateFields">
+			<input message="tns:getTemplateFields" />
+			<output message="tns:getTemplateFieldsResponse" />
+			 <fault message="tns:error" name="FireFlowError" />
+		</operation>
+		<operation name="authenticate">
+			<input message="tns:authenticate" />
+			<output message="tns:authenticateResponse" />
+		</operation>
+		<operation name="isSessionAlive">
+			<input message="tns:isSessionAlive" />
+			<output message="tns:isSessionAliveResponse" />
+		</operation>
+		<operation name="updateObjectCustomField">
+			<input message="tns:updateObjectCustomField" />
+			<output message="tns:updateObjectCustomFieldResponse" />
+			<fault message="tns:error" name="FireFlowError" />
+		</operation>
+		<operation name="addObjectCustomField">
+			<input message="tns:addObjectCustomField" />
+			<output message="tns:addObjectCustomFieldResponse" />
+			<fault message="tns:error" name="FireFlowError" />
+		</operation>
+		<operation name="deleteObjectCustomField">
+			<input message="tns:deleteObjectCustomField" />
+			<output message="tns:deleteObjectCustomFieldResponse" />
+			<fault message="tns:error" name="FireFlowError" />
+		</operation>
+	</portType>
+
+	<binding name="FireFlowWebServiceBinding" type="tns:FireFlowWebServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<operation name="createTicket">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="getTicket">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="getFields">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="getTemplateFields">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="authenticate">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="isSessionAlive">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+		<operation name="updateObjectCustomField">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="addObjectCustomField">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+		<operation name="deleteObjectCustomField">
+			<soap:operation soapAction=""/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+			<fault name="FireFlowError">
+			 <soap:fault name="FireFlowError" use="literal"/>
+			</fault>
+		</operation>
+	</binding>
+
+	<service name="FireFlowWebServiceService">
+		<documentation>FireFlow Web Services</documentation>
+		<port name="FireFlowWebServicePort" binding="tns:FireFlowWebServiceBinding">
+			<soap:address location="https://10.80.122.122/WebServices/WSDispatcher.pl"/>
+		</port>
+	</service>
+
+</definitions>]]></wsdl_xml>
+</sys_soap_message>
+</unload>

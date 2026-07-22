@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2026-07-21 17:17:05">
+<sys_soap_message_function action="INSERT_OR_UPDATE">
+<authentication_type>basic</authentication_type>
+<basic_auth_password/>
+<basic_auth_profile display_value="Adani Algosec User">46c859dd476ee210f5c6bd39516d4371</basic_auth_profile>
+<basic_auth_user/>
+<certificate display_value=""/>
+<enable_mutual_auth>false</enable_mutual_auth>
+<envelope><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsh="https://www.algosec.com/WSHandler">
+    <soapenv:Header />
+    <soapenv:Body>
+        <wsh:createTicket>
+            <FFWSHeader>
+                <version>1</version>
+                <opaque></opaque>
+            </FFWSHeader>
+            <sessionId>${sessionId}</sessionId>
+            <ticket>
+                <template>Adani Change Traffic Request</template>
+                <attachments>
+                    <fileName>${fileNameValue}</fileName>
+                    <fileContent>${fileBase64}</fileContent>
+                </attachments>
+                <requestor>${requestorDetails}</requestor>
+				<description> ${description} </description>
+				<expire> ${expire} </expire>
+                <subject>${subject}</subject>
+                <trafficLines>
+                    <action>1</action>
+                </trafficLines>
+				<customFields>
+                    <key>ritmNo</key>
+                    <values>${ritmNumber}</values>
+                </customFields>
+                <customFields>
+                    <key>ritmSysId</key>
+                    <values>${ritmSysId}</values>
+                </customFields>
+				 <customFields>
+                    <key>requestType</key>
+                    <values>${requestType}</values>
+                </customFields>
+                <customFields>
+                    <key>requirementType</key>
+                    <values>${requirementType}</values>
+                </customFields>
+                <customFields>
+                    <key>commType</key>
+                    <values>${commType}</values>
+                </customFields>
+                <customFields>
+                    <key>accessType</key>
+                    <values>${accessType}</values>
+                </customFields>
+            </ticket>
+        </wsh:createTicket>
+    </soapenv:Body>
+</soapenv:Envelope>]]></envelope>
+<function_name>createTicket</function_name>
+<key_store display_value=""/>
+<key_store_alias/>
+<key_store_password/>
+<lock>false</lock>
+<protocol_profile display_value=""/>
+<qualified_name>Algosec ticket Creation [ createTicket ]</qualified_name>
+<soap_action/>
+<soap_endpoint>https://10.3.140.207/WebServices/WSDispatcher.pl</soap_endpoint>
+<soap_message display_value="Algosec ticket Creation">7064702f938a6e50965944a8e7373c7e</soap_message>
+<strip_whitespace>false</strip_whitespace>
+<sys_class_name>sys_soap_message_function</sys_class_name>
+<sys_created_by>izt.krishnakumar</sys_created_by>
+<sys_created_on>2025-07-02 05:49:17</sys_created_on>
+<sys_id>50c3f6289326eed03664b3dd1dba1040</sys_id>
+<sys_mod_count>31</sys_mod_count>
+<sys_name>createTicket</sys_name>
+<sys_package display_value="Global" source="global">global</sys_package>
+<sys_policy/>
+<sys_scope display_value="Global">global</sys_scope>
+<sys_update_name>sys_soap_message_function_50c3f6289326eed03664b3dd1dba1040</sys_update_name>
+<sys_updated_by>izt.prince</sys_updated_by>
+<sys_updated_on>2026-06-10 09:50:35</sys_updated_on>
+<use_basic_auth>false</use_basic_auth>
+<use_mid_server display_value="GCP-Adani-Integration-UAT">a181f11bdb56b4107aec65ead39619ea</use_mid_server>
+<use_ws_security>false</use_ws_security>
+<ws_security_type/>
+<ws_security_username_profile display_value=""/>
+<ws_security_x509_profile display_value=""/>
+</sys_soap_message_function>
+</unload>

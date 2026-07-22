@@ -75,6 +75,10 @@ Yes. Under the **Incident** application menu, a module like **Create New** opens
 **What is the relationship between Applications and Modules?**
 Applications act as containers, while modules are the individual actionable items inside them.
 
+**Session time out?**
+It is controlled by a system propoerty we can inc or dec from the prop 
+TODO: write the prop name
+
 ---
 
 
